@@ -27,6 +27,10 @@ class CollectionRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
+
+            'code' => 'required|min:3|max:64',
+            'name' => 'required|min:6|max:255',
+            'tests' => 'required',
         ];
     }
 
