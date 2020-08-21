@@ -9,3 +9,5 @@
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('logout') }}"><i class="la la-sign-out"></i> Logout</a></li>
         </ul>
 </li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('specimen') }}'><i class='nav-icon la la-question'></i> Specimens</a></li>
