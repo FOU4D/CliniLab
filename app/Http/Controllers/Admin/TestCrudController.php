@@ -122,7 +122,7 @@ class TestCrudController extends CrudController
         [
             'name' => 'preparation', 
             'label' => 'Patient Preparation and Notes:',
-            'type'  => 'simplemde',
+            'type'  => 'textarea',
 
         ],
         [
@@ -139,7 +139,7 @@ class TestCrudController extends CrudController
         [
             'name' => 'normal_values',
             'label' => 'Normal Values:',
-            'type'  => 'simplemde',
+            'type'  => 'textarea',
             'hint' => 'the calibred normal values in lab to show on final report',
         ],
         [
