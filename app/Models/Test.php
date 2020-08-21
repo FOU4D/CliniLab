@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Specimen extends Model
+class Test extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Specimen extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'specimens';
+    protected $table = 'tests';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,9 +34,9 @@ class Specimen extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function tests()
+    public function specimen()
     {
-        return $this->hasMany('App\Models\Test');
+        return $this->belongsTo('App\Models\Specimen');
     }
     /*
     |--------------------------------------------------------------------------
