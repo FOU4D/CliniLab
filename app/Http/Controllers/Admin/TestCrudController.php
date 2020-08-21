@@ -129,11 +129,13 @@ class TestCrudController extends CrudController
             'name' => 'turnaround_time', 
             'label' => 'Expected Turnaround Units:',
             'type'  => 'number',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
             'hint' => 'Ex: if results expected in 3 days type 3',
         ],
         [
             'name' => 'turnaround_interval',
             'type'  => 'enum',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
             'hint' => 'Ex: if results expected in 3 days, choose days',
         ],
         [

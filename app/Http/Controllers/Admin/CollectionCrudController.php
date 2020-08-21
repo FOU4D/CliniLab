@@ -39,7 +39,48 @@ class CollectionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        //CRUD::setFromDb(); // columns
+
+
+        $this->crud->addColumn([
+            'name'      => 'row_number',
+            'type'      => 'row_number',
+            'label'     => '#',
+            'orderable' => false,
+            'searchLogic'    => false,
+            'visibleInModal' => false,
+        ])->makeFirstColumn();
+        $this->crud->addColumn([
+            'name'      => 'code',
+            'label'     => 'Code',
+        ]);
+        $this->crud->addColumn([
+            'name'      => 'name',
+            'label'     => 'Name',
+            'limit'  => 46,
+        ]);
+        $this->crud->addColumn([
+            'name' => 'isActive',
+            'label' => 'Availability',
+            'type' => 'radio',
+            'options'     => [
+                    0 => 'Not Available',
+                    1 => 'Available'
+            ]
+        ]);
+        $this->crud->filters();
+        $this->crud->addFilter([ 
+                'type'  => 'simple',
+                'name'  => 'isActive',
+                'label' => 'Availability'
+                ],
+                false, 
+                function() {
+                        $this->crud->addClause('where', 'isActive', '1'); 
+                } );
+        $this->crud->enableExportButtons();
+
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -58,7 +99,66 @@ class CollectionCrudController extends CrudController
     {
         CRUD::setValidation(CollectionRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
+       $this->crud->setHeading('Reference Tests Collection', 'create');
+        $this->crud->addFields([
+        [
+            'name' => 'name', 
+            'label' => 'Collection Name:',
+            'type'  => 'text',
+            'hint' => 'be precise as possible',
+        ],
+        [
+            'name' => 'code', 
+            'label' => 'Standard Code (Short Name):',
+            'type'  => 'text',
+            'hint' => 'international or lab codes for fast access',
+        
+        ],
+        [
+            'name' => 'description', 
+            'label' => 'Test Collection Description:',
+            'type'  => 'textarea',
+            'hint' => 'if you need to leave a note on the final report',
+        ],
+        [
+            'name' => 'preparation', 
+            'label' => 'Patient Preparation and Notes:',
+            'type'  => 'textarea',
+            'hint' => 'what to be told to the patient before or during sample collection',
+
+        ],
+        [
+            'name' => 'turnaround_time', 
+            'label' => 'Expected Turnaround Units:',
+            'type'  => 'number',
+            'hint' => 'Ex: if results expected in 3 days type 3',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'name' => 'turnaround_interval',
+            'type'  => 'enum',
+            'hint' => 'Ex: if results expected in 3 days, choose days',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'name' => 'normal_values',
+            'label' => 'Normal Values:',
+            'type'  => 'textarea',
+            'hint' => 'leave empty if it will depends on values from collected tests',
+        ],
+        [
+            'name' => 'isActive',
+            'label' => 'Availability:',
+            'type'  => 'radio',
+            'options'     => [
+                0 => 'Not Avilable',
+                1 => 'Available'],
+            'default' => '0',
+            'inline' => true,
+        ],
+
+    ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
