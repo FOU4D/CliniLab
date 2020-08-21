@@ -34,10 +34,14 @@ class Test extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function specimen()
-    {
-        return $this->belongsTo('App\Models\Specimen');
-    }
+    	public function specimen()
+    	   {
+        	return $this->belongsTo('App\Models\Specimen');
+	    }
+	public function collections()
+	{
+	    return $this->belongsToMany('App\Models\Collection', 'collection_test');
+	}
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -13,9 +13,9 @@ class CreateCollectionTestPivotTable extends Migration
     public function up()
     {
         Schema::create('collection_test', function (Blueprint $table) {
-            $table->integer('collection_id')->unsigned()->index();
+            $table->bigInteger('collection_id')->unsigned()->index();
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
-            $table->integer('test_id')->unsigned()->index();
+            $table->bigInteger('test_id')->unsigned()->index();
             $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');
             $table->primary(['collection_id', 'test_id']);
         });

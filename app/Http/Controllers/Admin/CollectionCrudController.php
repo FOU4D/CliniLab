@@ -112,14 +112,21 @@ class CollectionCrudController extends CrudController
             'name' => 'code', 
             'label' => 'Standard Code (Short Name):',
             'type'  => 'text',
-            'hint' => 'international or lab codes for fast access',
-        
+            'hint' => 'international or lab codes for fast access', 
         ],
         [
             'name' => 'description', 
             'label' => 'Test Collection Description:',
             'type'  => 'textarea',
             'hint' => 'if you need to leave a note on the final report',
+        ],
+        [
+        'label'     => "Tests included:",
+        'type'      => 'select2_multiple',
+        'name'      => 'tests',
+        'model'     => "App\Models\Test",
+        'pivot'     => true,
+        'hint'      => 'included in those tests included in this collection',
         ],
         [
             'name' => 'preparation', 

@@ -163,7 +163,14 @@ class TestCrudController extends CrudController
             'default' => '0',
             'inline' => true,
         ],
-
+        [
+        'label'     => "Test Collection:",
+        'type'      => 'select2_multiple',
+        'name'      => 'collections',
+        'model'     => "App\Models\Collection",
+        'pivot'     => true,
+        'hint'      => 'included in those test collections',
+        ],
     ]);
 
         /**
