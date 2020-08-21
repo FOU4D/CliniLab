@@ -39,8 +39,28 @@ class SpecimenCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
+        //CRUD::setFromDb(); // columns
+        CRUD::addColumn(
+            [
+            'name'      => 'row_number',
+            'type'      => 'row_number',
+            'label'     => '#',
+            'orderable' => false,
+            'searchLogic'    => false,
+            'visibleInModal' => false,
+            ]);
+	CRUD::addColumn(
+            [
+            'name'      => 'code',
+            'label'     => 'CODE',
+            ]);
+        CRUD::addColumn(
+            [
+            'name'      => 'name',
+            'label'     => 'Name',
+            'limit'  => 46,
+        ]);
+	$this->crud->enableExportButtons();
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -58,8 +78,30 @@ class SpecimenCrudController extends CrudController
     {
         CRUD::setValidation(SpecimenRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
 
+        CRUD::addField(
+            [
+                'name' => 'name', 
+                'label' => 'Specimen Full Name:',
+                'type'  => 'text',
+                'hint'  => 'Specimen name here, min: 12, max: 255 characters',
+            ]);
+        CRUD::addField(
+            [
+                'name' => 'code', 
+                'label' => 'Standard Code:',
+                'type'  => 'text',
+                'hint'  => 'Specimen internationsl or standard code, min: 3, max: 32 characters',
+
+            ]);
+        CRUD::addField(
+            [
+                'name' => 'description', 
+                'label' => 'Description / Notes:',
+                'type'  => 'textarea',
+                'hint'  => 'max: 255 characters, can be left empty if you descripe in the name field',
+            ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

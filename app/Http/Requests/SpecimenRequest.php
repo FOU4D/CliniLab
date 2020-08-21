@@ -27,6 +27,9 @@ class SpecimenRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
+            'code' => 'required|min:3|max:32',
+            'name' => 'required|min:6|max:255',
+            'description' => 'nullable|max:500',
         ];
     }
 
