@@ -40,15 +40,7 @@ class InstitutionCrudController extends CrudController
     protected function setupListOperation()
     {
         //CRUD::setFromDb(); // columns
-            $this->crud->addColumn([
-            'name' => 'isActive',
-            'label' => 'Availability',
-            'type' => 'radio',
-            'options'     => [
-                    0 => 'Not Available',
-                    1 => 'Available'
-                ]
-            ]);
+            //$this->crud->addColumn([
             $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
@@ -88,8 +80,53 @@ class InstitutionCrudController extends CrudController
     {
         CRUD::setValidation(InstitutionRequest::class);
 
-        CRUD::setFromDb(); // fields
-
+        //CRUD::setFromDb(); // fields
+       $this->crud->addFields([
+        [
+            'label'     => "Full Name:",
+            'type'      => 'text',
+            'name'      => 'name',
+            'hint'      => 'Institution Name will be used for reports and identification',
+	    //'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'label'     => 'Institution Type:',
+            'name' => 'type',
+            'type'  => 'enum',
+            'hint' => 'used to group and identify type of institution',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'label'     => 'Relationship Type:',
+            'name' => 'relation',
+            'type'  => 'enum',
+            'hint' => 'relationship with the insitution',
+	    'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'name' => 'email', 
+            'label' => 'Email Address:',
+            'type'  => 'email',
+        ],
+        [
+            'name' => 'website', 
+            'label' => 'Website:',
+            'type'  => 'url',
+            'hint' => 'http://www.domain.com',
+        ],
+        [
+            'name' => 'description', 
+            'label' => 'Description of Institution:',
+            'type'  => 'textarea',
+            'hint' => 'official description as possible, use notes for internal notes',
+        ],
+        [
+            'name' => 'notes', 
+            'label' => 'Notes (internal usage):',
+            'type'  => 'textarea',
+            'hint' => 'only internal notes',
+        ],
+    ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

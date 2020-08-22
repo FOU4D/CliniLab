@@ -39,7 +39,41 @@ class IndividualCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        //CRUD::setFromDb(); // columns
+
+           $this->crud->addColumn([
+            'name' => 'id',
+            'label' => 'ID',
+            'type' => 'number',
+            'prefix' => 'IND-',
+            ]);
+            $this->crud->addColumn([
+            'name' => 'salutation',
+            'label' => 'Salut.',
+            'type' => 'text',
+            ]);
+            $this->crud->addColumn([
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'text',
+            'limit'  => 46,
+            ]);
+            $this->crud->addColumn([
+            'name' => 'gender',
+            'label' => 'Gender',
+            'type' => 'text',
+            ]);
+            $this->crud->addColumn([
+            'name' => 'dob',
+            'label' => 'DOB',
+            'type' => 'date',
+            ]);
+        $this->crud->filters();
+        
+        $this->crud->enableExportButtons();
+            
+
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -58,7 +92,53 @@ class IndividualCrudController extends CrudController
     {
         CRUD::setValidation(IndividualRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
+
+
+
+        $this->crud->addFields([
+        [
+            'label'     => 'salutation:',
+            'name' => 'salutation',
+            'type'  => 'enum',
+            'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+         [
+            'label'     => 'Gender:',
+            'name' => 'gender',
+            'type'  => 'enum',
+            'wrapper' => ['class' => 'form-group col-sm-6'],
+        ],
+        [
+            'label'     => "Full Name:",
+            'type'      => 'text',
+            'name'      => 'name',
+            'hint'      => 'individual Name will be used for reports and identification',
+        ],
+        [
+            'name' => 'dob', 
+            'label' => 'Date of Birth:',
+            'type'  => 'date',
+        ],
+        [
+            'name' => 'email', 
+            'label' => 'Email Address:',
+            'type'  => 'email',
+        ],
+        [
+            'name' => 'bio', 
+            'label' => 'Biography:',
+            'type'  => 'textarea',
+            'hint' => 'for public figures and officials',
+        ],
+        [
+            'name' => 'notes', 
+            'label' => 'Lab Notes:',
+            'type'  => 'textarea',
+            'hint' => 'for internal usage only',
+        ],
+
+    ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

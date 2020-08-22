@@ -27,6 +27,9 @@ class IndividualRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:3|max:255',
+            'gender' => 'required',
+            'dob' => 'required',
         ];
     }
 
