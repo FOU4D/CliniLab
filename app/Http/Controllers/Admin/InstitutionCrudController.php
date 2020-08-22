@@ -18,7 +18,7 @@ class InstitutionCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -153,7 +153,117 @@ class InstitutionCrudController extends CrudController
 	'pivot'     => true,
 	'tab'             => 'Individuals',
 	],
-    ]);
+
+        [
+            'name' => 'phone',
+            'label' => 'Primary Phone Number:',
+            'type' => 'text',
+            'hint' => 'local or international format',
+            'tab' => 'Communications',
+        ],
+        [   // repeatable
+            'name'  => 'phones',
+            'label' => 'Additionl Phone Number:',
+            'type'  => 'repeatable',
+            //'tab' => 'Phones & Addresses',
+            'tab' => 'Communications',
+            'fields' => [
+                [
+                    'name'    => 'pnumber',
+                    'type'    => 'number',
+                    'label'   => 'Phone Number:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'pmobile',
+                    'type'    => 'checkbox',
+                    'label'   => 'Mobile',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'pwork',
+                    'type'    => 'checkbox',
+                    'label'   => 'Work',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'pwhatsapp',
+                    'type'    => 'checkbox',
+                    'label'   => 'Whatsapp',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+
+            ],
+
+            // optional
+            'new_item_label'  => 'Add More Phones', 
+        ],
+        [   // repeatable
+            'name'  => 'address',
+            'label' => 'Addresses:',
+            'type'  => 'repeatable',
+            ///'tab' => 'Phones & Addresses',
+            'tab' => 'Communications',
+            'fields' => [
+                [
+                    'name'    => 'address1',
+                    'type'    => 'text',
+                    'label'   => 'Address Line 1:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'address2',
+                    'type'    => 'text',
+                    'label'   => 'Address Line 2:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'neighbourhood',
+                    'type'    => 'text',
+                    'label'   => 'Neighbourhood:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+                [
+                    'name'    => 'city',
+                    'type'    => 'text',
+                    'label'   =>  'City:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+                [
+                    'name'    => 'state',
+                    'type'    => 'text',
+                        'label'   =>  'City:',
+                        'wrapper' => ['class' => 'form-group col-md-6'],
+                    ],
+                    [
+                        'name'    => 'state',
+                        'type'    => 'text',
+                        'label'   =>  'State:',
+                        'wrapper' => ['class' => 'form-group col-md-6'],
+                    ],
+
+                    [
+                        'name'    => 'country',
+                        'type'    => 'text',
+                        'label'   =>  'Country:',
+                        'wrapper' => ['class' => 'form-group col-md-6'],
+                    ],
+                                    [
+                                        'name'    => 'default',
+                                        'type'    => 'checkbox',
+                                        'label'   => 'Default?',
+                                        'wrapper' => ['class' => 'form-group col-md-2'],
+                                    ],
+
+                                ],
+
+                                // optional
+                                'new_item_label'  => 'Add More Addresses', 
+                            ],
+                        ]);
+
+
+//    ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

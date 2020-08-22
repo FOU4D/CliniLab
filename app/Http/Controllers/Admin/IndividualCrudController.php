@@ -67,6 +67,11 @@ class IndividualCrudController extends CrudController
             'label' => 'DOB',
             'type' => 'date',
             ]);
+            //$this->crud->addColumn([
+            //'name' => 'phone',
+            //'label' => 'Phone',
+            //'type' => 'number',
+            //]);
         $this->crud->filters();
         
         $this->crud->enableExportButtons();
@@ -101,40 +106,47 @@ class IndividualCrudController extends CrudController
             'name' => 'salutation',
             'type'  => 'enum',
             'wrapper' => ['class' => 'form-group col-sm-6'],
+            'tab' => 'Basic',
         ],
          [
             'label'     => 'Gender:',
             'name' => 'gender',
             'type'  => 'enum',
             'wrapper' => ['class' => 'form-group col-sm-6'],
+            'tab' => 'Basic',
         ],
         [
             'label'     => "Full Name:",
             'type'      => 'text',
             'name'      => 'name',
             'hint'      => 'individual Name will be used for reports and identification',
+            'tab' => 'Basic',
         ],
         [
             'name' => 'dob', 
             'label' => 'Date of Birth:',
             'type'  => 'date',
+            'tab' => 'Basic',
         ],
         [
             'name' => 'email', 
             'label' => 'Email Address:',
             'type'  => 'email',
+	    'tab' => 'Communications',
         ],
         [
             'name' => 'bio', 
             'label' => 'Biography:',
             'type'  => 'textarea',
             'hint' => 'for public figures and officials',
+            'tab' => 'Info',
         ],
         [
             'name' => 'notes', 
             'label' => 'Lab Notes:',
             'type'  => 'textarea',
             'hint' => 'for internal usage only',
+            'tab' => 'Info',
         ],
         [
 
@@ -142,8 +154,142 @@ class IndividualCrudController extends CrudController
         'type'      => 'select2_multiple',
         'name'      => 'memberof',
         'pivot'     => true,
+	'inline_create' => [ 'entity' => 'Institution' ],
+	'ajax' => true,
+            'tab' => 'Basic',
         ],
 
+        [
+            'name' => 'phone',
+            'label' => 'Primary Phone Number:',
+            'type' => 'text',
+            'hint' => 'local or international format',
+            'tab' => 'Communications',
+        ],
+        [   // repeatable
+            'name'  => 'phones',
+            'label' => 'Additionl Phone Number:',
+            'type'  => 'repeatable',
+            //'tab' => 'Phones & Addresses',
+	    'tab' => 'Communications',
+            'fields' => [
+                [
+                    'name'    => 'pnumber',
+                    'type'    => 'number',
+                    'label'   => 'Phone Number:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'pmobile',
+                    'type'    => 'checkbox',
+                    'label'   => 'Mobile',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'phome',
+                    'type'    => 'checkbox',
+                    'label'   => 'Home',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'pwork',
+                    'type'    => 'checkbox',
+                    'label'   => 'Work',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'pwhatsapp',
+                    'type'    => 'checkbox',
+                    'label'   => 'Whatsapp',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+
+            ],
+
+            // optional
+            'new_item_label'  => 'Add More Phones', 
+        ],
+        [   // repeatable
+            'name'  => 'address',
+            'label' => 'Addresses:',
+            'type'  => 'repeatable',
+            ///'tab' => 'Phones & Addresses',
+	    'tab' => 'Communications',
+            'fields' => [
+                [
+                    'name'    => 'address1',
+                    'type'    => 'text',
+                    'label'   => 'Address Line 1:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'address2',
+                    'type'    => 'text',
+                    'label'   => 'Address Line 2:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'neighbourhood',
+                    'type'    => 'text',
+                    'label'   => 'Neighbourhood:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+                [
+                    'name'    => 'city',
+                    'type'    => 'text',
+                    'label'   =>  'City:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+                [
+                    'name'    => 'state',
+                    'type'    => 'text',
+                    'label'   =>  'State:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+
+                [
+                    'name'    => 'country',
+                    'type'    => 'text',
+                    'label'   =>  'Country:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ],
+
+                [
+                    'name'    => 'home',
+                    'type'    => 'checkbox',
+                    'label'   => 'Home',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'work',
+                    'type'    => 'checkbox',
+                    'label'   => 'Work',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'school',
+                    'type'    => 'checkbox',
+                    'label'   => 'School',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'other',
+                    'type'    => 'checkbox',
+                    'label'   => 'other',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+                [
+                    'name'    => 'default',
+                    'type'    => 'checkbox',
+                    'label'   => 'Default?',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+                ],
+
+            ],
+
+            // optional
+            'new_item_label'  => 'Add More Addresses', 
+        ],
     ]);
 
         /**

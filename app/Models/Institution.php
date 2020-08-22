@@ -19,7 +19,7 @@ class Institution extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    //protected $fillable = ['name', 'type', 'relation'];
     // protected $hidden = [];
     // protected $dates = [];
 
