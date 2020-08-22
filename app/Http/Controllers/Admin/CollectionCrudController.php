@@ -43,12 +43,9 @@ class CollectionCrudController extends CrudController
 
 
         $this->crud->addColumn([
-            'name'      => 'row_number',
-            'type'      => 'row_number',
-            'label'     => '#',
-            'orderable' => false,
-            'searchLogic'    => false,
-            'visibleInModal' => false,
+            'name'      => 'id',
+            'type'      => 'number',
+            'label'     => 'ID',
         ])->makeFirstColumn();
         $this->crud->addColumn([
             'name'      => 'code',

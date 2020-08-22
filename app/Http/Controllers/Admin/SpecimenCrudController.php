@@ -40,15 +40,12 @@ class SpecimenCrudController extends CrudController
     protected function setupListOperation()
     {
         //CRUD::setFromDb(); // columns
-        CRUD::addColumn(
-            [
-            'name'      => 'row_number',
-            'type'      => 'row_number',
-            'label'     => '#',
-            'orderable' => false,
-            'searchLogic'    => false,
-            'visibleInModal' => false,
-            ]);
+       
+        $this->crud->addColumn([
+            'name'      => 'id',
+            'type'      => 'number',
+            'label'     => 'ID',
+        ])->makeFirstColumn();
 	CRUD::addColumn(
             [
             'name'      => 'code',

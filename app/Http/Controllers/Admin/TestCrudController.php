@@ -41,12 +41,9 @@ class TestCrudController extends CrudController
     {
         //CRUD::setFromDb(); // columns
         $this->crud->addColumn([
-            'name'      => 'row_number',
-            'type'      => 'row_number',
-            'label'     => '#',
-            'orderable' => false,
-            'searchLogic'    => false,
-            'visibleInModal' => false,
+            'name'      => 'id',
+            'type'      => 'number',
+            'label'     => 'ID',
         ])->makeFirstColumn();
         $this->crud->addColumn([
             'name'      => 'code',

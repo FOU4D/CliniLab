@@ -45,7 +45,6 @@ class IndividualCrudController extends CrudController
             'name' => 'id',
             'label' => 'ID',
             'type' => 'number',
-            'prefix' => 'IND-',
             ]);
             $this->crud->addColumn([
             'name' => 'salutation',
@@ -136,6 +135,13 @@ class IndividualCrudController extends CrudController
             'label' => 'Lab Notes:',
             'type'  => 'textarea',
             'hint' => 'for internal usage only',
+        ],
+        [
+
+        'label'     => "Related Institutions:",
+        'type'      => 'select2_multiple',
+        'name'      => 'memberof',
+        'pivot'     => true,
         ],
 
     ]);

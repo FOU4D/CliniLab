@@ -34,7 +34,7 @@ class Individual extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-        public function memberinstitution()
+        public function memberof()
         {
             return $this->belongsToMany('App\Models\Institution', 'individual_institution');
         }

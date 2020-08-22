@@ -44,7 +44,7 @@ class InstitutionCrudController extends CrudController
             $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'text',
+            'type' => 'number',
             ]);
             $this->crud->addColumn([
             'name' => 'name',
@@ -88,6 +88,8 @@ class InstitutionCrudController extends CrudController
             'name'      => 'name',
             'hint'      => 'Institution Name will be used for reports and identification',
 	    //'wrapper' => ['class' => 'form-group col-sm-6'],
+            'tab' => 'Basic',
+
         ],
         [
             'label'     => 'Institution Type:',
@@ -95,6 +97,8 @@ class InstitutionCrudController extends CrudController
             'type'  => 'enum',
             'hint' => 'used to group and identify type of institution',
 	    'wrapper' => ['class' => 'form-group col-sm-6'],
+            'tab' => 'Basic',
+
         ],
         [
             'label'     => 'Relationship Type:',
@@ -102,35 +106,53 @@ class InstitutionCrudController extends CrudController
             'type'  => 'enum',
             'hint' => 'relationship with the insitution',
 	    'wrapper' => ['class' => 'form-group col-sm-6'],
+            'tab' => 'Basic',
+
         ],
         [
             'name' => 'email', 
             'label' => 'Email Address:',
             'type'  => 'email',
+            'tab' => 'Info',
+
         ],
         [
             'name' => 'website', 
             'label' => 'Website:',
             'type'  => 'url',
             'hint' => 'http://www.domain.com',
+            'tab' => 'Info',
+
         ],
         [
             'name' => 'description', 
             'label' => 'Description of Institution:',
             'type'  => 'textarea',
             'hint' => 'official description as possible, use notes for internal notes',
+            'tab' => 'Info',
+
         ],
         [
             'name' => 'notes', 
             'label' => 'Notes (internal usage):',
             'type'  => 'textarea',
             'hint' => 'only internal notes',
+	    'tab' => 'Info',
         ],
         [
         'label'     => "Key Contact:",
         'type'      => 'select',
         'name'      => 'key_contact',
+        'tab'             => 'Individuals',
         ],
+	[
+
+        'label'     => "Members:",
+        'type'      => 'select2_multiple',
+        'name'      => 'members',
+	'pivot'     => true,
+	'tab'             => 'Individuals',
+	],
     ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
