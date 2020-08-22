@@ -20,12 +20,12 @@ class CreateIndividualsTable extends Migration
             $table->string('name');
             $table->enum('gender', ['Female', 'Male']);
             $table->date('dob')->default('1970-12-01');
-            $table->string('email')->nullable;
+            $table->string('email')->nullable();
             $table->text('bio')->nullable();
             $table->text('notes')->nullable();
 
-            $table->unsignedBigInteger('created_by')->nullable;
-            $table->unsignedBigInteger('updated_by')->nullable;
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });

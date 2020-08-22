@@ -39,8 +39,38 @@ class InstitutionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
+        //CRUD::setFromDb(); // columns
+            $this->crud->addColumn([
+            'name' => 'isActive',
+            'label' => 'Availability',
+            'type' => 'radio',
+            'options'     => [
+                    0 => 'Not Available',
+                    1 => 'Available'
+                ]
+            ]);
+            $this->crud->addColumn([
+            'name' => 'id',
+            'label' => 'ID',
+            'type' => 'text',
+            ]);
+            $this->crud->addColumn([
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'text',
+            ]);
+            $this->crud->addColumn([
+            'name' => 'type',
+            'label' => 'Type',
+            'type' => 'text',
+            ]);$this->crud->addColumn([
+            'name' => 'relation',
+            'label' => 'Relationship',
+            'type' => 'text',
+            ]);
+        $this->crud->filters();
+        
+        $this->crud->enableExportButtons();
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
