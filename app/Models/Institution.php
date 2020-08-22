@@ -36,10 +36,12 @@ class Institution extends Model
     */
         public function memberindividual()
         {
-            return $this->belongsToMany('App\Models\individual', 'individual_institution');
+            return $this->belongsToMany('App\Models\Individual', 'individual_institution');
         }
-
-
+   	 public function key_contact()
+    	{
+        	return $this->hasMany('App\Models\Individual');
+    	}
     /*
     |--------------------------------------------------------------------------
     | SCOPES

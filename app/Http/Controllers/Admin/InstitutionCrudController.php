@@ -126,6 +126,11 @@ class InstitutionCrudController extends CrudController
             'type'  => 'textarea',
             'hint' => 'only internal notes',
         ],
+        [
+        'label'     => "Key Contact:",
+        'type'      => 'select',
+        'name'      => 'key_contact',
+        ],
     ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:

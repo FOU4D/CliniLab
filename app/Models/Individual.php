@@ -38,6 +38,11 @@ class Individual extends Model
         {
             return $this->belongsToMany('App\Models\Institution', 'individual_institution');
         }
+    	public function indkeycontact()
+    	{
+        	return $this->hasMany('App\Models\Institution', 'key_contact', 'id');
+    	}
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
