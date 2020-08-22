@@ -2,6 +2,16 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
 
+<!-- contacts -->
+<li class="nav-item nav-dropdown">
+    <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-suitcase"></i> Contacts</a>
+    <ul class="nav-dropdown-items">
+      <li class="nav-item"><a class="nav-link" href="{{ backpack_url('individual') }}"><i class="nav-icon la la-user"></i> <span>Individuals</span></a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ backpack_url('institution') }}"><i class="nav-icon la la-university"></i> <span>Institutions</span></a></li>
+    </ul>
+</li>
+
+
 <!-- Users, Roles, Permissions -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>
@@ -11,6 +21,7 @@
 	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
 	</ul>
 </li>
+
 
 <!-- References Database -->
 <li class="nav-item nav-dropdown">
