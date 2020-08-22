@@ -135,11 +135,43 @@ class TestCrudController extends CrudController
 	    'wrapper' => ['class' => 'form-group col-sm-6'],
             'hint' => 'Ex: if results expected in 3 days, choose days',
         ],
-        [
-            'name' => 'normal_values',
-            'label' => 'Normal Values:',
-            'type'  => 'textarea',
-            'hint' => 'the calibred normal values in lab to show on final report',
+        
+        [     // repeatable
+            'name'  => 'normal_values',
+            'label' => 'Normal values:',
+            'type'  => 'repeatable',
+            'fields' => [
+                [
+                    'name'    => 'tidentifier',
+                    'type'    => 'text',
+                    'label'   => 'Identifier:',
+                    'wrapper' => ['class' => 'form-group col-md-4'],
+		    'hint'    => 'Age 37 - 48',
+                ],
+                [
+                    'name'    => 'tvalues',
+                    'type'    => 'text',
+                    'label'   => 'Values:',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+		    'hint'    => '400000:50000',
+                ],
+                [
+                    'name'    => 'tunits',
+                    'type'    => 'text',
+                    'label'   => 'Units:',
+                    'wrapper' => ['class' => 'form-group col-md-2'],
+		    'hint'    => 'Ui/L',
+                ],
+                [
+                    'name'    => 'tinterpretation',
+                    'type'    => 'textarea',
+                    'label'   => 'Interpretation and Report:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+            ],
+
+            // optional
+            'new_item_label'  => 'Add More Values', 
         ],
         [
             'label'     => "Specimen Type:",

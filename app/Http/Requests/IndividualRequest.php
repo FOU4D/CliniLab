@@ -30,6 +30,7 @@ class IndividualRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'gender' => 'required',
             'dob' => 'required',
+	    'phone'     => 'required|min:8|max:18|unique:individuals',
         ];
     }
 

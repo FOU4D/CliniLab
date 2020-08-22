@@ -30,6 +30,7 @@ class InstitutionRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'type' => 'required',
             'relation' => 'required',
+	    'phone'	=> 'required|min:8|max:18|unique:institutions',
         ];
     }
 
