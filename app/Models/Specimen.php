@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Spatie\Permission\Traits\HasRoles;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Specimen extends Model
 {
     use CrudTrait;
+    use HasRoles;
 
     /*
     |--------------------------------------------------------------------------
