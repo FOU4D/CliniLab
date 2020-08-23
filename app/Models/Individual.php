@@ -42,10 +42,10 @@ class Individual extends Model
     	{
         	return $this->hasMany('App\Models\Institution', 'key_contact', 'id');
     	}
-    	public function collect()
-    	{
-        	return $this->hasMany('App\Models\Collect');
-   	 }
+//    	public function collect()
+//    	{
+//        	return $this->hasMany('App\Models\Collect');
+//   	 }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

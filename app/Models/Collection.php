@@ -37,10 +37,15 @@ class Collection extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+
     public function tests()
     {
         return $this->belongsToMany('App\Models\Test', 'collection_test');
     }
+
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
