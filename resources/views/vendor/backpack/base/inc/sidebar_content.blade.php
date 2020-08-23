@@ -44,3 +44,6 @@
 
 
 
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visit') }}'><i class='nav-icon la la-question'></i> Visits</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('collect') }}'><i class='nav-icon la la-question'></i> Collects</a></li>
