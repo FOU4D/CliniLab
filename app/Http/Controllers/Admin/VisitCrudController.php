@@ -71,10 +71,6 @@ class VisitCrudController extends CrudController
             'label'     => 'Visitor Name:',
             'type'      => 'select2',
             'name'      => 'individual_id',
-            //'attribute' => 'name',
-            //'entity'    => 'individual',
-            //'model'     => "App\Models\individual",
-            'hint'  => 'who requested it, name to be printed on reports',
             'tab'             => 'Visitor',
         ],
         [
