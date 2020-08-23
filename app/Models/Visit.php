@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Spatie\Permission\Traits\HasRoles;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Test extends Model
+class Visit extends Model
 {
     use CrudTrait;
-    use HasRoles;
 
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +15,7 @@ class Test extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'tests';
+    protected $table = 'visits';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -37,24 +34,22 @@ class Test extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    	public function specimen()
-    	   {
-        	return $this->belongsTo('App\Models\Specimen');
-	    }
-	public function collections()
-	{
-	    return $this->belongsToMany('App\Models\Collection', 'collection_test');
-	}
 
-    public function visits()
+
+    public function individual()
     {
-        return $this->belongsToMany('App\Models\Visit', 'test_visit');
+        return $this->belongsTo('App\Models\Individual');
     }
 
-//    public function requests()
-//    {
-//        return $this->morphMany('App\Models\Request', 'requestable');
-//    }
+    public function tests()
+    {
+        return $this->belongsToMany('App\Models\Test', 'test_visit');
+    }
+
+    public function collections()
+    {
+        return $this->belongsToMany('App\Models\Collection', 'collection_visit');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

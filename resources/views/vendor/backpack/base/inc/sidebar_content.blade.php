@@ -35,9 +35,9 @@
 
 <!-- Account and logout -->
 <li class="nav-item nav-dropdown">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-lg la-star"></i>Account Settings</a>
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-lg la-star"></i>My Account</a>
         <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" href="{{ backpack_url('edit-account-info') }}"><i class="la la-unlock"></i> My Account</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ backpack_url('edit-account-info') }}"><i class="la la-unlock"></i> Settings</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('logout') }}"><i class="la la-sign-out"></i> Logout</a></li>
         </ul>
 </li>
@@ -46,5 +46,3 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('visit') }}'><i class='nav-icon la la-question'></i> Visits</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('collect') }}'><i class='nav-icon la la-question'></i> Collects</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('request') }}'><i class='nav-icon la la-question'></i> Requests</a></li>
