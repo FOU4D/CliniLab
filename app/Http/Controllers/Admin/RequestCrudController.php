@@ -58,7 +58,53 @@ class RequestCrudController extends CrudController
     {
         CRUD::setValidation(RequestRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
+
+
+        $this->crud->addFields([
+
+        [
+            'label'     => 'Test Name:',
+            'type'      => 'select2',
+            'name'      => 'test_id',
+            'tab'       => 'Requested Test',
+        ],
+        [
+            'label'     => 'Visit ID:',
+            'type'      => 'select2',
+            'name'      => 'visit_id',
+            'attribute' => 'id',
+            'tab'       => 'Requested Test',
+        ],
+        [
+            'name' => 'notes', 
+            'label' => 'Notes:',
+            'type'  => 'textarea',
+            //'hint' => 'Doctor, Hospital or Company referenced the visitor. it will be shown on report',
+            'tab'   => 'Requested Test',
+        ],
+
+        [
+            'label'     => 'Sample Collected',
+            'type'      => 'checkbox',
+            'name'      => 'sample_collected',
+            'tab'       => 'Sample Collection',
+        ],
+        [
+            'label'     => 'Sample Status:',
+            'type'      => 'enum',
+            'name'      => 'sample_status',
+            'tab'       => 'Sample Collection',
+        ],
+        [
+            'label'     => 'Sample Notes:',
+            'type'      => 'textarea',
+            'name'      => 'sample_notes',
+            'tab'       => 'Sample Collection',
+        ],
+
+
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

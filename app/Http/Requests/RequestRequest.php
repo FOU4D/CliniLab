@@ -27,6 +27,8 @@ class RequestRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
+	'visit_id' => 'required',
+	'test_id' => 'required',
         ];
     }
 
