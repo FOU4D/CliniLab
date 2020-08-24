@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Individual extends Model
+class Request extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Individual extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'individuals';
+    protected $table = 'requests';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -27,24 +27,21 @@ class Individual extends Model
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
-    *
+    */
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-        public function memberof()
-        {
-            return $this->belongsToMany('App\Models\Institution', 'individual_institution');
-        }
-    	public function indkeycontact()
-    	{
-        	return $this->hasMany('App\Models\Institution', 'key_contact', 'id');
-    	}
 
-    public function visits()
+    public function test()
     {
-        return $this->hasMany('App\Models\Visit');
+        return $this->belongsTo('App\Models\Test');
+    }
+    public function visit()
+    {
+        return $this->belongsTo('App\Models\Visit');
     }
 
 

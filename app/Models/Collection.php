@@ -44,10 +44,6 @@ class Collection extends Model
         return $this->belongsToMany('App\Models\Test', 'collection_test');
     }
 
-    public function visits()
-    {
-        return $this->belongsToMany('App\Models\Visit', 'collection_visit');
-    }
 
     /*
     |--------------------------------------------------------------------------

@@ -41,14 +41,9 @@ class Visit extends Model
         return $this->belongsTo('App\Models\Individual');
     }
 
-    public function tests()
+    public function request()
     {
-        return $this->belongsToMany('App\Models\Test', 'test_visit');
-    }
-
-    public function collections()
-    {
-        return $this->belongsToMany('App\Models\Collection', 'collection_visit');
+        return $this->hasMany('App\Models\Request');
     }
     /*
     |--------------------------------------------------------------------------

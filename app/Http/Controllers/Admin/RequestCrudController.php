@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\VisitRequest;
+use App\Http\Requests\RequestRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class VisitCrudController
+ * Class RequestCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class VisitCrudController extends CrudController
+class RequestCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class VisitCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Visit::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/visit');
-        CRUD::setEntityNameStrings('visit', 'visits');
+        CRUD::setModel(\App\Models\Request::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/request');
+        CRUD::setEntityNameStrings('test request', 'test requests');
     }
 
     /**
@@ -54,40 +54,11 @@ class VisitCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
-
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VisitRequest::class);
+        CRUD::setValidation(RequestRequest::class);
 
-//        CRUD::setFromDb(); // fields
-
-
-
-        //CRUD::setFromDb(); // fields
-        //$this->crud->setHeading('Visits & Collections', 'create');
-        $this->crud->addFields([
-
-        [
-            'label'     => 'Visitor Name:',
-            'type'      => 'select2',
-            'name'      => 'individual_id',
-            //'tab'       => 'Visitor',
-        ],
-        [
-            'name' => 'referenced_by', 
-            'label' => 'Referenced by:',
-            'type'  => 'text',
-	    'hint' => 'Doctor, Hospital or Company referenced the visitor. it will be shown on report',
-            //'tab'   => 'Visitor',
-        ],
-        [
-            'name' => 'notes', 
-            'label' => 'Visitor Requests and Notes:',
-            'type'  => 'textarea',
-            //'tab'   => 'Visitor',
-        ],
-
-        ]);
+        CRUD::setFromDb(); // fields
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

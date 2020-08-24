@@ -46,15 +46,11 @@ class Test extends Model
 	    return $this->belongsToMany('App\Models\Collection', 'collection_test');
 	}
 
-    public function visits()
+    public function request()
     {
-        return $this->belongsToMany('App\Models\Visit', 'test_visit');
+        return $this->hasMany('App\Models\Request');
     }
 
-//    public function requests()
-//    {
-//        return $this->morphMany('App\Models\Request', 'requestable');
-//    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

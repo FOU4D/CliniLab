@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTestVisitPivotTable extends Migration
+class CreateTestRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +13,22 @@ class CreateTestVisitPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('test_visit', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
             $table->bigInteger('test_id')->unsigned()->index();
             $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');
             $table->bigInteger('visit_id')->unsigned()->index();
             $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
-            $table->primary(['test_id', 'visit_id']);
+
+            $table->text('notes')->nullable();
+
+
         });
+
+            DB::statement('ALTER TABLE requests AUTO_INCREMENT = 10000000;');
+
     }
 
     /**
@@ -28,6 +38,6 @@ class CreateTestVisitPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_visit');
+        Schema::dropIfExists('requests');
     }
 }
