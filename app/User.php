@@ -32,6 +32,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+// add relationships
+
+    public function report()
+    {
+        return $this->hasMany('App\Models\Report');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
