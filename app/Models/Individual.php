@@ -42,10 +42,10 @@ class Individual extends Model
         	return $this->hasMany('App\Models\Institution', 'key_contact', 'id');
     	}
 
-    public function visits()
-    {
-        return $this->hasMany('App\Models\Visit');
-    }
+	public function visits()
+    	{
+        	return $this->hasMany('App\Models\Visit');
+    	}
 
 
     /*
