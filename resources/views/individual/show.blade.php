@@ -25,155 +25,6 @@
 @endsection
 
 @section('content')
-
-
-<div class="row">
-	<div class="col-lg-6">
-		<div class="card">
-			<div class="card-header">
-				<i class="la la-align-justify"></i> <strong>ID:</strong> {{$entry->id}}
-			</div>
-			<div class="card-body">
-				<ul class="list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{$entry->salutation}} {{$entry->name}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{$entry->gender}}, <strong>Date of Birth:</strong> {{$entry->dob}}</li>
-                </ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-6">
-		<div class="col-lg-12">
-			<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
-		</div>
-		<div class="col-lg-12">
-			<div class="card">
-				<div class="card-header">
-					<i class="la la-align-justify"></i> <strong>Contacts</strong>
-				</div>
-				<div class="card-body">
-					<ul class="list-group">
-	                      <li class="list-group-item"><strong>Primary Phone:</strong> <a href="tel:{{$entry->phone}}">{{$entry->phone}}</a> </li>
-	                      @isset($entry->email)
-	    					<li class="list-group-item"><strong>Email:</strong> {{$entry->email}}</li>
-						  @endisset
-	                </ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-@foreach ($entry->phones as $firstt=>$second)
-    @foreach ($second as $thirdd=>$forth)
-        @isset($forth)
-                    @if($thirdd ==  'pnumber')
-                        {{$forth}}
-                    @elseif ($forth ==  1)
-                        @if($thirdd ==  'pwhatsapp')
-                            <i class="la la-whatsapp la-lg mt-4"></i>
-                        @elseif ($thirdd ==  'pwork')
-                            <i class="la la-building la-lg mt-4"></i>
-                        @elseif ($thirdd ==  'pmobile')
-                            <i class="la la-mobile la-lg mt-4"></i>
-                        @elseif ($thirdd ==  'phome')
-                            <i class="la la-home la-lg mt-4"></i>
-			@else
-				out
-                    @endif
-        @endisset
-    @endforeach
-@endforeach
-<hr>
-
-    
-@foreach ($entry->phones as $firstt=>$second)
-    @foreach ($second as $thirdd=>$forth)
-        @isset($forth)
-   
-{{$second['pnumber']}} 
-
-                @if($forth ==  1)
-                    @if($thirdd ==  'pwhatsapp')
-                        <i class="la la-whatsapp la-lg mt-4"></i>
-                    @endif
-                    @if($thirdd ==  'pwork')
-                        <i class="la la-building la-lg mt-4"></i>
-                    @endif
-                    @if($thirdd ==  'pmobile')
-                        <i class="la la-mobile la-lg mt-4"></i>
-                    @endif
-                    @if($thirdd ==  'phome')
-                        <i class="la la-home la-lg mt-4"></i>
-                    @endif
-                @endif
-        @endisset
-    @endforeach
-@endforeach
-
-<pre>
-
-
-
-
-@foreach ($entry->phones as $firstt=>$second)
-{{$firstt}}
-    @foreach ($second as $thirdd=>$forth)
-        @isset($forth)
-            {{$thirdd}}: {{$forth}}
-        @endisset
-    @endforeach
-@endforeach
-
-<?php
-
-print_r($entry->address);
-?>
-</pre>
-<?php
-foreach($entry->address as $key=>$value){
-
-
-    echo $key . "<br>";
-    if(is_object($value) || is_array($value)){
-        foreach($value as $key2=>$value2){
-             echo $key2 . "<br>";
-             echo $value2 . "<br>";
-        }
-    }else{
-        echo $value . "<br>";
-    }
-
-}
-?>
-
-<?php
-print_r($entry->phones);
-
-foreach($entry->phones as $key=>$value){
-    echo $key . "<br>";
-    if(is_object($value) || is_array($value)){
-        foreach($value as $key2=>$value2){
-             echo $key2 . "<br>";
-             echo $value2 . "<br>";
-        }
-    }else{
-        echo $value . "<br>";
-    }
-
-}
-?>
-
-
-
-
-
-
-
-
-
-
-
 <div class="row">
 	<div class="{{ $crud->getShowContentClass() }}">
 
@@ -237,6 +88,82 @@ foreach($entry->phones as $key=>$value){
 
 	</div>
 </div>
+
+
+<div class="card">
+    <div class="card-header">
+        <i class="la la-align-justify"></i> <strong>ID:</strong> {{$entry->id}}
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+              <li class="list-group-item"><i class="la la-user la-lg mt-4"></i>> {{$entry->salutation}} {{$entry->name}}</li>
+              <li class="list-group-item"><i class="la la-venus-mars la-lg mt-4"></i> {{$entry->gender}}, <i class="la la-calendar la-lg mt-4"></i> {{$entry->dob}}</li>
+        </ul>
+    </div>
+</div>
+
+
+<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
+
+
+{{$entry->email}}
+
+
+
+
+
+
+
+@php
+foreach ($entry->address as $key => $addressesarray) {
+    $addresses = (object) $addressesarray;
+    echo $addresses->address1 . '<br>';
+    echo $addresses->address2 . '<br>';
+    echo $addresses->neighbourhood . ', '. $addresses->city.'.<br>';
+    echo $addresses->state . ', '. $addresses->country.'.<br>';
+    if ($addresses->default != 0) {
+        echo '<i class="'.'la la-star la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($addresses->home  != 0) {
+        echo '<i class="'.'la la-home la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($addresses->work != 0) {
+        echo '<i class="'.'la la-building la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($addresses->school != 0) {
+        echo '<i class="'.'la la-university la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($addresses->other != 0) {
+        echo '<i class="'.'la la-thumb-tack la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+}
+@endphp
+
+<br> 
+
+@php
+foreach ($entry->phones as $key => $phonesarray) {
+    $iphones = (object) $phonesarray;
+    echo $iphones->pnumber;
+    if ($iphones->phome != 0) {
+        echo '<i class="'.'la la-home la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($iphones->pmobile != 0) {
+        echo '<i class="'.'la la-mobile la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($iphones->pwork != 0) {
+        echo '<i class="'.'la la-building la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+    if ($iphones->pwhatsapp != 0) {
+        echo '<i class="'.'la la-whatsapp la-lg mt-4"'.'><'.'/'.'i> ';
+    }
+}
+@endphp
+
+
+
+
+
 @endsection
 
 
@@ -246,14 +173,6 @@ foreach($entry->phones as $key=>$value){
 @endsection
 
 @section('after_scripts')
-<script>
-
-    var app = @json($entry->address);
-
-
-    var app = @json($entry->address, JSON_PRETTY_PRINT);
-
-</script>
 	<script src="{{ asset('packages/backpack/crud/js/crud.js') }}"></script>
 	<script src="{{ asset('packages/backpack/crud/js/show.js') }}"></script>
 @endsection
