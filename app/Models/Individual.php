@@ -23,6 +23,7 @@ class Individual extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    protected $casts = [ 'address' => 'array', 'phones' => 'array',];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -60,9 +61,39 @@ class Individual extends Model
     |--------------------------------------------------------------------------
     */
 
+
+public function setAddressAttribute($value)
+{
+    $this->attributes['address'] = json_encode($value);
+}
+
+public function getAddressAttribute($value)
+{
+    return json_decode($value, true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+
+   
+
+
+
 }

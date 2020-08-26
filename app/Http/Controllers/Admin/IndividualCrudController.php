@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\IndividualRequest;
+//use App\Http\Requests\CreateIndividualRequest as StoreRequest;
+//use App\Http\Requests\UpdateIndividualRequest as setupUpdateOperation;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-
 /**
  * Class IndividualCrudController
  * @package App\Http\Controllers\Admin
@@ -31,6 +32,7 @@ class IndividualCrudController extends CrudController
         CRUD::setModel(\App\Models\Individual::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/individual');
         CRUD::setEntityNameStrings('individual', 'individuals');
+	$this->crud->setShowView('individual.show');
     }
 
     /**
@@ -310,5 +312,15 @@ class IndividualCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+	//CRUD::setValidation(UpdateIndividualRequest::class);
+    }
+
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', true);
+        $this->crud->addColumn([
+           
+        ]);
     }
 }

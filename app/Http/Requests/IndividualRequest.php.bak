@@ -25,18 +25,13 @@ class IndividualRequest extends FormRequest
      */
     public function rules()
     {
-       
-
-	$rules = [
-		'name' => 'required|min:3|max:255',
-            	'gender' => 'required',
-            	'dob' => 'required',
-		];
-    	if ($this->getMethod() == 'POST') {
-        	$rules += ['phone'     => 'required|min:8|max:18|unique:individuals',];
-    	} //else {
-		///$rules += ['phone'     => 'required|min:8|max:18',];
-	return $rules;
+        return [
+            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:3|max:255',
+            'gender' => 'required',
+            'dob' => 'required',
+	    'phone'     => 'required|min:8|max:18|unique:individuals',
+        ];
     }
 
     /**
