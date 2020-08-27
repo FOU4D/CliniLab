@@ -34,7 +34,7 @@
 			<div class=" col-sm-12 col-md-12">
 			<div class="card">
 				<div class="card-header bg-primary">
-					<i class="la la-align-justify"></i>
+					<i class="la la-barcode"></i>
 					<strong>ID:</strong> {{$entry->id}}
 				</div>
 				<div class="card-body">
@@ -56,20 +56,19 @@
 	                  <li class="list-group-item">
 	                  	<i class="la la-venus-mars la-lg"></i> <strong>Gender:</strong>		{{$entry->gender}}, <i class="la la-calendar la-lg"></i> <strong>Age:</strong>		{{$agef}} years
 	                  </li>
-	                  @isset($entry->institutions)
+	                  @if($entry->institutions()->exists())
 	                  <li class="list-group-item">
 	                  	<i class="la la-user la-lg"></i> <strong>Affiliation: </strong>
 	                  	@foreach ($entry->institutions as $institutionsz)
 						<a href="/lab/institution/{{$institutionsz->id}}/show">{{$institutionsz->name}}</a> - 
 						@endforeach
 	                  </li>
-	                  @endisset
+	                  @endif
 					</ul>
 				</div>
 			</div>
 			</div>
 		</div>
-
 		@isset($entry->address)
 		<div id="addresses" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
@@ -79,7 +78,7 @@
 					</div>
 					<div class="card-body">
 						<div id="addresses" class="row d-flex">
-						@foreach ($entry->address as $key => $addressesarray)
+						@foreach ((array) $entry->address as $key => $addressesarray)
 						<div class=" col-sm-12 col-md-6">
 							@php
 							$addresses = (object) $addressesarray;
@@ -114,7 +113,6 @@
 			</div>
 		</div>
 		@endisset
-
 	</div>
 
 	<div class="col-sm-12 col-md-4">
@@ -150,13 +148,13 @@
 					  		<i class="la la-phone la-lg">  </i> <strong>Primary:</strong>  <a href="tel:{{$entry->phone}}">{{$entry->phone}}</a>
 					  	</li>
 
-					  	@isset($entry->phones)
+					  	@if($entry->phones !== null)
 					  	@foreach ($entry->phones as $key => $phonesarray)
 						<li class="list-group-item">
 							@php
 							$iphones = (object) $phonesarray;
 							@endphp
-							<i class="la la-phone la-lg"></i>  <a href="tel:{{$iphones->pnumber}}">{{$iphones->pnumber}}</a>
+							<i class="la la-ellipsis-v la-lg"></i>  <a href="tel:{{$iphones->pnumber}}">{{$iphones->pnumber}}</a>
 							@if($iphones->phome != 0 )
 								<i class="la la-home la-lg"></i>
 							@endif
@@ -171,7 +169,7 @@
 							@endif
 						</li>
 						@endforeach
-						@endisset
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -184,7 +182,7 @@
 </div>
 
 
-@isset($entry->visits)
+@if($entry->visits()->exists())
 <div class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
@@ -212,7 +210,7 @@
 		</div>
 	</div>
 </div>
-@endisset
+@endif
 
 
 @isset($entry->notes)
@@ -244,6 +242,10 @@
 		<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
 	</div>
 </div>
+
+
+
+
 @endsection
 
 
