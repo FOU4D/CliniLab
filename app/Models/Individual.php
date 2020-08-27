@@ -73,9 +73,15 @@ public function getAddressAttribute($value)
 }
 
 
+public function setPhonesAttribute($value)
+{
+    $this->attributes['phones'] = json_encode($value);
+}
 
-
-
+public function getPhonesAttribute($value)
+{
+    return json_decode($value, true);
+}
 
 
 

@@ -29,6 +29,7 @@ class InstitutionCrudController extends CrudController
         CRUD::setModel(\App\Models\Institution::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/institution');
         CRUD::setEntityNameStrings('institution', 'institutions');
+	$this->crud->setShowView('institution.show');
     }
 
     /**
@@ -229,12 +230,6 @@ class InstitutionCrudController extends CrudController
                     'label'   =>  'City:',
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
-                [
-                    'name'    => 'state',
-                    'type'    => 'text',
-                        'label'   =>  'City:',
-                        'wrapper' => ['class' => 'form-group col-md-6'],
-                    ],
                     [
                         'name'    => 'state',
                         'type'    => 'text',
@@ -249,9 +244,9 @@ class InstitutionCrudController extends CrudController
                         'wrapper' => ['class' => 'form-group col-md-6'],
                     ],
                                     [
-                                        'name'    => 'default',
+                                        'name'    => 'hq',
                                         'type'    => 'checkbox',
-                                        'label'   => 'Default?',
+                                        'label'   => 'Headquarter',
                                         'wrapper' => ['class' => 'form-group col-md-2'],
                                     ],
 

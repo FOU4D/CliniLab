@@ -188,7 +188,7 @@
 <div class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>Visits</strong></div>
+		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> {{count($entry->visits)}} <strong>Visits</strong></div>
 		  <div class="card-body">
 			<table class="table table-responsive-sm table-sm table-hover table-striped">
 			  <thead>
@@ -199,13 +199,13 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			    @foreach ($entry->visits as $visitz)
 			    <tr>
-			      @foreach ($entry->visits as $visitz)
 			      <td><a href="/lab/visit/{{$visitz->id}}/show">{{$visitz->id}}</a></td>
 			      <td>{{$visitz->created_at}}</td>
 			      <td>{{$visitz->referenced_by}}</td>
-			      @endforeach
 			    </tr>
+			    @endforeach
 			  </tbody>
 			</table>
 		  </div>
@@ -217,7 +217,7 @@
 
 @isset($entry->notes)
 <div id="notes" class="row d-flex">
-	<div class=" col-sm-12 col-md-12">
+	<div class=" col-sm-12 col-md-12 d-print-none">
 		<div class="card">
 			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Notes</strong></div>
 			<div class="card-body">
