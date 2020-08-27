@@ -59,7 +59,7 @@ class VisitCrudController extends CrudController
     {
         CRUD::setValidation(VisitRequest::class);
 
-//        CRUD::setFromDb(); // fields
+        CRUD::setFromDb(); // fields
 
 
 
