@@ -25,69 +25,124 @@
 @endsection
 
 @section('content')
-<div class="row">
-	<div class="{{ $crud->getShowContentClass() }}">
-
-	<!-- Default box -->
-	  <div class="">
-	  	@if ($crud->model->translationEnabled())
-	    <div class="row">
-	    	<div class="col-md-12 mb-2">
-				<!-- Change translation button group -->
-				<div class="btn-group float-right">
-				  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    {{trans('backpack::crud.language')}}: {{ $crud->model->getAvailableLocales()[request()->input('locale')?request()->input('locale'):App::getLocale()] }} &nbsp; <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				  	@foreach ($crud->model->getAvailableLocales() as $key => $locale)
-					  	<a class="dropdown-item" href="{{ url($crud->route.'/'.$entry->getKey().'/show') }}?locale={{ $key }}">{{ $locale }}</a>
-				  	@endforeach
-				  </ul>
-				</div>
+<div id="headerfull" class="row d-flex">
+	<div id="visitinfo" class="col-sm-12 col-md-6">
+		<div class="card">
+			<div class="card-header bg-primary">
+				<i class="la la-barcode"></i>
+				<strong>The Visit:</strong> {{$entry->id}}
 			</div>
-	    </div>
-	    @else
-	    @endif
-	    <div class="card no-padding no-border">
-			<table class="table table-striped mb-0">
-		        <tbody>
-		        @foreach ($crud->columns() as $column)
-		            <tr>
-		                <td>
-		                    <strong>{!! $column['label'] !!}:</strong>
-		                </td>
-                        <td>
-							@if (!isset($column['type']))
-		                      @include('crud::columns.text')
-		                    @else
-		                      @if(view()->exists('vendor.backpack.crud.columns.'.$column['type']))
-		                        @include('vendor.backpack.crud.columns.'.$column['type'])
-		                      @else
-		                        @if(view()->exists('crud::columns.'.$column['type']))
-		                          @include('crud::columns.'.$column['type'])
-		                        @else
-		                          @include('crud::columns.text')
-		                        @endif
-		                      @endif
-		                    @endif
-                        </td>
-		            </tr>
-		        @endforeach
-				@if ($crud->buttons()->where('stack', 'line')->count())
-					<tr>
-						<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
-						<td>
-							@include('crud::inc.button_stack', ['stack' => 'line'])
-						</td>
-					</tr>
-				@endif
-		        </tbody>
-			</table>
-	    </div><!-- /.box-body -->
-	  </div><!-- /.box -->
+			<div class="card-body">
+				<ul class="list-group">
+					@isset($entry->referenced_by)
+					<li class="list-group-item">
+						<strong>Referenced By: </strong>{{$entry->referenced_by}}
+					</li>
+					@endisset
+					<li class="list-group-item">
+						<strong>Time and Date: </strong>{{$entry->created_at}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="visitorinfo" class="col-sm-12 col-md-6">
+		<div class="card">
+			<div class="card-header bg-success">
+				<i class="la la-users"></i>
+				<strong>The Visitor:</strong> {{$entry->individual_id}}
+			</div>
+			<div class="card-body">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<strong>Name: </strong> <a href="/lab/individual/{{$entry->individual['id']}}/show">{{$entry->individual['name']}}</a>
+					</li>
+			      @php
+                    $datezx = new DateTime($entry->individual['dob']);
+                    $nowzx = new DateTime();
+                    $agezx = $nowzx->diff($datezx);
+                    if($agezx->y < 1) {
+                        $agemonthszx = " < 1";
+                        $agefzx = $agemonthszx;
+                    }else{
+                        $agefzx = $agezx->y;
+                    }
+                  @endphp
 
+					<li class="list-group-item">
+						<strong>Gender: </strong>{{$entry->individual['gender']}}, <strong>Age: </strong>{{$agefzx}} years.
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div id="testsrequired" class="row d-flex">
+	<div class="col-sm-12 col-md-12">
+		<div class="card">
+			<div class="card-header bg-warning">
+				<i class="la la-users"></i>
+				<strong>{{count($entry->request)}} Test Requested</strong>
+			</div>
+			<div class="card-body">
+			<table class="table table-responsive-sm table-sm table-hover table-striped">
+			  <thead>
+			    <tr>
+			    	<th>Req. ID</th>
+			    	<th>Date & Time</th>
+			    	<th>Req Test</th>
+			    	<th>Sample Status</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    @foreach ($entry->request as $requestzx)
+			    <tr>
+			      <td><a href="/lab/request/{{$requestzx->id}}/show">{{$requestzx->id}}</a></td>
+			      <td>{{$requestzx->created_at}}</td>
+			      <td><a href="/lab/test/{{$requestzx->test_id}}/show">{{$requestzx->test_id}}</a></td>
+			      <td>{{$requestzx->sample_status}}</td>
+			    </tr>
+			    @endforeach
+			  </tbody>
+			</table>
+			</div>
+		</div>
 	</div>
 </div>
+<div id="footnotes" class="row d-flex">
+	<div class="col-sm-12 col-md-12">
+		<div class="card">
+			<div class="card-header bg-warning">
+				<i class="la la-users"></i>
+				<strong>Notes</strong>
+			</div>
+			<div class="card-body">
+				{{$entry->notes}}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="footnotes" class="row d-flex">
+	<div class="col-sm-12 col-md-6">
+	@if ($crud->buttons()->where('stack', 'line')->count())
+		<tr>
+			<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
+			<td>
+				@include('crud::inc.button_stack', ['stack' => 'line'])
+			</td>
+		</tr>
+	@endif
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
+	</div>
+</div>
+
+
+
 @endsection
 
 

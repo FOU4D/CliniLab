@@ -19,6 +19,8 @@ class VisitCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -29,6 +31,8 @@ class VisitCrudController extends CrudController
         CRUD::setModel(\App\Models\Visit::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/visit');
         CRUD::setEntityNameStrings('visit', 'visits');
+        $this->crud->setShowView('visit.show');
+
     }
 
     /**
@@ -39,7 +43,41 @@ class VisitCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        //CRUD::setFromDb(); // columns
+$this->crud->addColumn([
+'type' => 'text',
+'name' => 'id',
+'label' => 'ID',
+]);
+
+$this->crud->addColumn([
+'type' => 'relationship',
+'name' => 'individual',
+'label' => 'Name',
+'limit' => 32,
+    'searchLogic' => true,
+
+]);
+
+$this->crud->addColumn([
+'type' => 'text',
+'name' => 'individual_id',
+'label' => 'Visitor',
+    'searchLogic' => true,
+
+]);
+
+
+$this->crud->addColumn([
+'type' => 'datetime',
+'name' => 'created_at',
+'label' => 'requested at',
+]);
+
+
+$this->crud->enableExportButtons();
+
+$this->crud->enableBulkActions();
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
