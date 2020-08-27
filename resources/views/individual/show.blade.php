@@ -56,21 +56,21 @@
 	                  <li class="list-group-item">
 	                  	<i class="la la-venus-mars la-lg"></i> <strong>Gender:</strong>		{{$entry->gender}}, <i class="la la-calendar la-lg"></i> <strong>Age:</strong>		{{$agef}} years
 	                  </li>
-	                  @if(count($entry->institutions) > 0)
+	                  @isset($entry->institutions)
 	                  <li class="list-group-item">
 	                  	<i class="la la-user la-lg"></i> <strong>Affiliation: </strong>
 	                  	@foreach ($entry->institutions as $institutionsz)
 						<a href="/lab/institution/{{$institutionsz->id}}/show">{{$institutionsz->name}}</a> - 
 						@endforeach
 	                  </li>
-	                  @endif
+	                  @endisset
 					</ul>
 				</div>
 			</div>
 			</div>
 		</div>
 
-		@if(count($entry->address) > 0)
+		@isset($entry->address)
 		<div id="addresses" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
 				<div class="card">
@@ -113,7 +113,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endisset
 
 	</div>
 
@@ -184,11 +184,11 @@
 </div>
 
 
-@if(count($entry->visits) > 0)
+@isset($entry->visits)
 <div class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> {{count($entry->visits)}} <strong>Visits</strong></div>
+		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>{{count($entry->visits)}} Visits</strong></div>
 		  <div class="card-body">
 			<table class="table table-responsive-sm table-sm table-hover table-striped">
 			  <thead>
@@ -212,7 +212,7 @@
 		</div>
 	</div>
 </div>
-@endif
+@endisset
 
 
 @isset($entry->notes)
