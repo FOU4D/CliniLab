@@ -25,145 +25,225 @@
 @endsection
 
 @section('content')
-<div class="row">
-	<div class="{{ $crud->getShowContentClass() }}">
 
-	<!-- Default box -->
-	  <div class="">
-	  	@if ($crud->model->translationEnabled())
-	    <div class="row">
-	    	<div class="col-md-12 mb-2">
-				<!-- Change translation button group -->
-				<div class="btn-group float-right">
-				  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    {{trans('backpack::crud.language')}}: {{ $crud->model->getAvailableLocales()[request()->input('locale')?request()->input('locale'):App::getLocale()] }} &nbsp; <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				  	@foreach ($crud->model->getAvailableLocales() as $key => $locale)
-					  	<a class="dropdown-item" href="{{ url($crud->route.'/'.$entry->getKey().'/show') }}?locale={{ $key }}">{{ $locale }}</a>
-				  	@endforeach
-				  </ul>
+<div class="row d-flex">
+
+	<div class="col-sm-12 col-md-8">
+
+		<div id="infobasic" class="row d-flex">
+			<div class=" col-sm-12 col-md-12">
+			<div class="card">
+				<div class="card-header bg-primary">
+					<i class="la la-align-justify"></i>
+					<strong>ID:</strong> {{$entry->id}}
+				</div>
+				<div class="card-body">
+					<ul class="list-group">
+					  <li class="list-group-item">
+					  	<i class="la la-user la-lg"></i><strong>Name:</strong>		{{$entry->salutation}} {{$entry->name}}
+					  </li>
+	                  @php
+	                    $date = new DateTime($entry->dob);
+	                    $now = new DateTime();
+	                    $age = $now->diff($date);
+	                    if($age->y < 1) {
+	                        $agemonths = " < 1";
+	                        $agef = $agemonths;
+	                    }else{
+	                        $agef = $age->y;
+	                    }
+	                  @endphp
+	                  <li class="list-group-item">
+	                  	<i class="la la-venus-mars la-lg"></i> <strong>Gender:</strong>		{{$entry->gender}}, <i class="la la-calendar la-lg"></i> <strong>Age:</strong>		{{$agef}} years
+	                  </li>
+	                  @if(count($entry->institutions) > 0)
+	                  <li class="list-group-item">
+	                  	<i class="la la-user la-lg"></i> <strong>Affiliation: </strong>
+	                  	@foreach ($entry->institutions as $institutionsz)
+						<a href="/lab/institution/{{$institutionsz->id}}/show">{{$institutionsz->name}}</a> - 
+						@endforeach
+	                  </li>
+	                  @endif
+					</ul>
 				</div>
 			</div>
-	    </div>
-	    @else
-	    @endif
-	    <div class="card no-padding no-border">
-			<table class="table table-striped mb-0">
-		        <tbody>
-		        @foreach ($crud->columns() as $column)
-		            <tr>
-		                <td>
-		                    <strong>{!! $column['label'] !!}:</strong>
-		                </td>
-                        <td>
-							@if (!isset($column['type']))
-		                      @include('crud::columns.text')
-		                    @else
-		                      @if(view()->exists('vendor.backpack.crud.columns.'.$column['type']))
-		                        @include('vendor.backpack.crud.columns.'.$column['type'])
-		                      @else
-		                        @if(view()->exists('crud::columns.'.$column['type']))
-		                          @include('crud::columns.'.$column['type'])
-		                        @else
-		                          @include('crud::columns.text')
-		                        @endif
-		                      @endif
-		                    @endif
-                        </td>
-		            </tr>
-		        @endforeach
-				@if ($crud->buttons()->where('stack', 'line')->count())
-					<tr>
-						<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
-						<td>
-							@include('crud::inc.button_stack', ['stack' => 'line'])
-						</td>
-					</tr>
-				@endif
-		        </tbody>
-			</table>
-	    </div><!-- /.box-body -->
-	  </div><!-- /.box -->
+			</div>
+		</div>
+
+		@if(count($entry->address) > 0)
+		<div id="addresses" class="row d-flex">
+			<div class=" col-sm-12 col-md-12">
+				<div class="card">
+					<div class="card-header bg-secondary">
+						<i class="la la-thumb-tack la-lg"></i> <strong>Addresses:</strong>
+					</div>
+					<div class="card-body">
+						<div id="addresses" class="row d-flex">
+						@foreach ($entry->address as $key => $addressesarray)
+						<div class=" col-sm-12 col-md-6">
+							@php
+							$addresses = (object) $addressesarray;
+							@endphp
+
+							@if($addresses->default != 0 )
+								<i class="la la-star la-lg"></i>
+							@endif
+							@if($addresses->home != 0 )
+								<i class="la la-home la-lg"></i>
+							@endif
+							@if($addresses->work != 0 )
+								<i class="la la-building la-lg"></i>
+							@endif
+							@if($addresses->school != 0 )
+								<i class="la la-university la-lg"></i>
+							@endif
+							@if($addresses->other != 0 )
+								<i class="la la-thumb-tack la-lg"></i>
+							@endif
+							<br>
+							{{$addresses->address1}}, <br>
+							{{$addresses->address2}}, <br>
+							{{$addresses->neighbourhood}}, {{$addresses->city}}, <br>
+							{{$addresses->state}}, {{$addresses->country}}, <br>
+						</div>
+						@endforeach
+						</div>			
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		@endif
 
 	</div>
+
+	<div class="col-sm-12 col-md-4">
+
+		@isset($entry->bio)
+		<div id="bio" class="row d-flex">
+			<div class=" col-sm-12 col-md-12">
+				<div class="card">
+					<div class="card-header bg-success"><i class="la la-info la-lg"></i> <strong>Biography</strong></div>
+					<div class="card-body">
+							{{$entry->bio}}
+					</div>
+		         </div>
+	     	</div>
+		</div>
+		@endisset	
+
+		<div id="contacts" class="row d-flex">
+			<div class=" col-sm-12 col-md-12">
+			<div class="card">
+				<div class="card-header bg-secondary">
+					<i class="la la-align-justify"></i>
+					<strong>Contact Info:</strong>
+				</div>
+				<div class="card-body">
+					<ul class="list-group">
+						@isset($entry->email)
+					 	<li class="list-group-item">
+					 		<i class="la la-envelope la-lg"></i>  <strong>Email:</strong>  <a href="mailto:{{$entry->email}}">{{$entry->email}}</a>
+					  	</li>
+					  	@endisset
+					  	<li class="list-group-item">
+					  		<i class="la la-phone la-lg">  </i> <strong>Primary:</strong>  <a href="tel:{{$entry->phone}}">{{$entry->phone}}</a>
+					  	</li>
+
+					  	@isset($entry->phones)
+					  	@foreach ($entry->phones as $key => $phonesarray)
+						<li class="list-group-item">
+							@php
+							$iphones = (object) $phonesarray;
+							@endphp
+							<i class="la la-phone la-lg"></i>  <a href="tel:{{$iphones->pnumber}}">{{$iphones->pnumber}}</a>
+							@if($iphones->phome != 0 )
+								<i class="la la-home la-lg"></i>
+							@endif
+							@if($iphones->pwhatsapp != 0 )
+								<i class="la la-whatsapp la-lg"></i>
+							@endif
+							@if($iphones->pmobile != 0 )
+								<i class="la la-mobile la-lg"></i>
+							@endif
+							@if($iphones->pwork != 0 )
+								<i class="la la-building la-lg"></i>
+							@endif
+						</li>
+						@endforeach
+						@endisset
+					</ul>
+				</div>
+			</div>
+			</div>
+		</div>
+
+
+	</div>
+
 </div>
 
 
-<div class="card">
-    <div class="card-header">
-        <i class="la la-align-justify"></i> <strong>ID:</strong> {{$entry->id}}
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-              <li class="list-group-item"><i class="la la-user la-lg mt-4"></i>> {{$entry->salutation}} {{$entry->name}}</li>
-              <li class="list-group-item"><i class="la la-venus-mars la-lg mt-4"></i> {{$entry->gender}}, <i class="la la-calendar la-lg mt-4"></i> {{$entry->dob}}</li>
-        </ul>
-    </div>
+@if(count($entry->visits) > 0)
+<div class="row d-flex">
+	<div class="col-sm-12 col-md-12">
+		<div class="card">
+		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>Visits</strong></div>
+		  <div class="card-body">
+			<table class="table table-responsive-sm table-sm table-hover table-striped">
+			  <thead>
+			    <tr>
+			    	<th>Visit ID</th>
+			    	<th>Date & Time</th>
+			    	<th>Ref. By</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      @foreach ($entry->visits as $visitz)
+			      <td><a href="/lab/visit/{{$visitz->id}}/show">{{$visitz->id}}</a></td>
+			      <td>{{$visitz->created_at}}</td>
+			      <td>{{$visitz->referenced_by}}</td>
+			      @endforeach
+			    </tr>
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+	</div>
 </div>
+@endif
 
 
-<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
+@isset($entry->notes)
+<div id="notes" class="row d-flex">
+	<div class=" col-sm-12 col-md-12">
+		<div class="card">
+			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Notes</strong></div>
+			<div class="card-body">
+					{{$entry->notes}}
+			</div>
+        </div>
+ 	</div>
+</div>
+@endisset
 
 
-{{$entry->email}}
-
-
-
-
-
-
-
-@php
-foreach ($entry->address as $key => $addressesarray) {
-    $addresses = (object) $addressesarray;
-    echo $addresses->address1 . '<br>';
-    echo $addresses->address2 . '<br>';
-    echo $addresses->neighbourhood . ', '. $addresses->city.'.<br>';
-    echo $addresses->state . ', '. $addresses->country.'.<br>';
-    if ($addresses->default != 0) {
-        echo '<i class="'.'la la-star la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($addresses->home  != 0) {
-        echo '<i class="'.'la la-home la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($addresses->work != 0) {
-        echo '<i class="'.'la la-building la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($addresses->school != 0) {
-        echo '<i class="'.'la la-university la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($addresses->other != 0) {
-        echo '<i class="'.'la la-thumb-tack la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-}
-@endphp
-
-<br> 
-
-@php
-foreach ($entry->phones as $key => $phonesarray) {
-    $iphones = (object) $phonesarray;
-    echo $iphones->pnumber;
-    if ($iphones->phome != 0) {
-        echo '<i class="'.'la la-home la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($iphones->pmobile != 0) {
-        echo '<i class="'.'la la-mobile la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($iphones->pwork != 0) {
-        echo '<i class="'.'la la-building la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-    if ($iphones->pwhatsapp != 0) {
-        echo '<i class="'.'la la-whatsapp la-lg mt-4"'.'><'.'/'.'i> ';
-    }
-}
-@endphp
-
-
-
-
-
+<div class="row d-flex">
+	<div class="col-sm-12 col-md-6">
+	@if ($crud->buttons()->where('stack', 'line')->count())
+		<tr>
+			<td><strong>{{ trans('backpack::crud.actions') }}</strong></td>
+			<td>
+				@include('crud::inc.button_stack', ['stack' => 'line'])
+			</td>
+		</tr>
+	@endif
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<small><strong>Created: </strong>{{$entry->created_at}}  -  <strong>Updated: </strong>{{$entry->updated_at}}</small>
+	</div>
+</div>
 @endsection
 
 

@@ -49,11 +49,19 @@ class IndividualCrudController extends CrudController
             'name' => 'id',
             'label' => 'ID',
             'type' => 'number',
+	    'thousands_sep' => '',
+    	    'searchLogic' => function ($query, $column, $searchTerm) {
+        	$query->orWhere('id', 'like', '%'.$searchTerm.'%');
+    	    }
             ]);
             $this->crud->addColumn([
-            'name' => 'salutation',
-            'label' => 'Salut.',
-            'type' => 'text',
+            'name' => 'phone',
+	    'label' => 'Phone',
+	    'type' => 'phone',
+    	    'searchLogic' => function ($query, $column, $searchTerm) {
+        	$query->orWhere('phone', 'like', '%'.$searchTerm.'%');
+	    }
+
             ]);
             $this->crud->addColumn([
             'name' => 'name',
@@ -67,19 +75,21 @@ class IndividualCrudController extends CrudController
             'type' => 'text',
             ]);
             $this->crud->addColumn([
-            'name' => 'dob',
-            'label' => 'DOB',
+            'name' => 'created_at',
+            'label' => 'Created',
             'type' => 'date',
             ]);
-            //$this->crud->addColumn([
-            //'name' => 'phone',
-            //'label' => 'Phone',
-            //'type' => 'number',
-            //]);
+            $this->crud->addColumn([
+            'name' => 'visits',
+            'label' => 'Visits',
+            'type' => 'relationship_count',
+	    'suffix' => ' Visits',
+            ]);
         $this->crud->filters();
-        
+
+
+
         $this->crud->enableExportButtons();
-            
 
 
 
@@ -156,7 +166,7 @@ class IndividualCrudController extends CrudController
 
         'label'     => "Related Institutions:",
         'type'      => 'select2_multiple',
-        'name'      => 'memberof',
+        'name'      => 'institutions',
         'pivot'     => true,
 	'inline_create' => [ 'entity' => 'Institution' ],
 	'ajax' => true,
