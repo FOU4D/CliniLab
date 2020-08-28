@@ -30,19 +30,19 @@
 
 
 	<div class="col-sm-12 col-md-8">
-		<div id="basics" class=" col-sm-12 col-md-12">
+		<div id="basics">
 			<div class="card">
-				<div class="card-header bg-primary">
+				<div class="card-header bg-primary bg-pink">
 					<i class="la la-barcode"></i>
 					<strong>ID:</strong> {{$entry->id}}
 				</div>
 				<div class="card-body">
 					<ul class="list-group">
 					  <li class="list-group-item">
-					  	<i class="la la-user la-lg"></i><strong>Name:</strong> {{$entry->name}}
+					  	<i class="la la-cube la-lg"></i><strong>Name:</strong> {{$entry->name}}
 					  </li>
 	                  <li class="list-group-item">
-	                  	<i class="la la-venus-mars la-lg"></i> <strong>Type:</strong>		{{$entry->type}}, <i class="la la-calendar la-lg"></i> <strong>Relation:</strong>		{{$entry->relation}}
+	                  	<i class="la la-ellipsis-v la-lg"></i> <strong>Type:</strong>		{{$entry->type}}, <i class="la la-cubes la-lg"></i> <strong>Relation:</strong>		{{$entry->relation}}
 	                  </li>
                       @isset($entry->key_contact)
                       <li class="list-group-item">
@@ -62,7 +62,7 @@
 		
 			<div class=" col-sm-12 col-md-12">
 				<div class="card">
-					<div class="card-header bg-success">
+					<div class="card-header bg-blue text-white">
 						<i class="la la-info la-lg"></i> <strong>Description</strong>
 					</div>
 					<div class="card-body">
@@ -81,22 +81,22 @@
 <div id="members" class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>Members</strong></div>
+		  <div class="card-header bg-blue text-white"><i class="la la-users la-lg"></i> <strong>Members</strong></div>
 		  <div class="card-body">
 			<table class="table table-responsive-sm table-sm table-hover table-striped">
 			  <thead>
 			    <tr>
-			    	<th>ID</th>
-			    	<th>Name</th>
-			    	<th>Joined at</th>
+			    	<th><strong>User ID</strong></th>
+			    	<th><strong>Name</strong>></th>
+			    	<th><strong>Joined at</strong></th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    @foreach ($entry->members as $memberz)
 			    <tr>
-			      <td><a href="/lab/individual/{{$memberz->id}}/show">{{$memberz->id}}</a></td>
-			      <td>{{$memberz->name}}</td>
-			      <td>{{$memberz->created_at}}</td>
+			      <td><i class="la la-barcode la-lg"></i> <a href="/lab/individual/{{$memberz->id}}/show">{{$memberz->id}}</a></td>
+			      <td><i class="la la-users la-lg"> </i>{{$memberz->name}}</td>
+			      <td><i class="la la-dashboard la-lg"> </i>{{$memberz->created_at}}</td>
 			    </tr>
 			    @endforeach
 			  </tbody>
@@ -110,7 +110,7 @@
 <div id="notes" class="row d-flex">
 	<div class=" col-sm-12 col-md-12 d-print-none">
 		<div class="card">
-			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Notes</strong></div>
+			<div class="card-header bg-yellow"><i class="la la-exclamation-triangle la-lg"></i> <strong>Notes</strong></div>
 			<div class="card-body">
 					{{$entry->notes}}
 			</div>
