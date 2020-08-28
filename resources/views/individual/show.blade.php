@@ -33,7 +33,7 @@
 		<div id="infobasic" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
 			<div class="card">
-				<div class="card-header bg-primary">
+				<div class="card-header bg-blue text-white" >
 					<i class="la la-barcode"></i>
 					<strong>ID:</strong> {{$entry->id}}
 				</div>
@@ -58,9 +58,9 @@
 	                  </li>
 	                  @if($entry->institutions()->exists())
 	                  <li class="list-group-item">
-	                  	<i class="la la-user la-lg"></i> <strong>Affiliation: </strong>
+	                  	<i class="la la-cubes la-lg"></i> <strong>Affiliation: </strong>
 	                  	@foreach ($entry->institutions as $institutionsz)
-						<a href="/lab/institution/{{$institutionsz->id}}/show">{{$institutionsz->name}}</a> - 
+						<i class="la la-cube la-lg"></i> <a href="/lab/institution/{{$institutionsz->id}}/show"> {{$institutionsz->name}}</a> 
 						@endforeach
 	                  </li>
 	                  @endif
@@ -73,8 +73,8 @@
 		<div id="addresses" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
 				<div class="card">
-					<div class="card-header bg-secondary">
-						<i class="la la-thumb-tack la-lg"></i> <strong>Addresses:</strong>
+					<div class="card-header bg-teal text-white">
+						<i class="la la-map la-lg"></i> <strong>Addresses:</strong>
 					</div>
 					<div class="card-body">
 						<div id="addresses" class="row d-flex">
@@ -83,7 +83,7 @@
 							@php
 							$addresses = (object) $addressesarray;
 							@endphp
-
+								<i class="la la-map-marker la-lg"></i>
 							@if($addresses->default != 0 )
 								<i class="la la-star la-lg"></i>
 							@endif
@@ -121,7 +121,7 @@
 		<div id="bio" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
 				<div class="card">
-					<div class="card-header bg-success"><i class="la la-info la-lg"></i> <strong>Biography</strong></div>
+					<div class="card-header bg-gray-300"><i class="la la-info la-lg"></i> <strong>Biography</strong></div>
 					<div class="card-body">
 							{{$entry->bio}}
 					</div>
@@ -133,15 +133,15 @@
 		<div id="contacts" class="row d-flex">
 			<div class=" col-sm-12 col-md-12">
 			<div class="card">
-				<div class="card-header bg-secondary">
-					<i class="la la-align-justify"></i>
+				<div class="card-header bg-green text-white">
+					<i class="la la-tty la-lg"></i>
 					<strong>Contact Info:</strong>
 				</div>
 				<div class="card-body">
 					<ul class="list-group">
 						@isset($entry->email)
 					 	<li class="list-group-item">
-					 		<i class="la la-envelope la-lg"></i>  <strong>Email:</strong>  <a href="mailto:{{$entry->email}}">{{$entry->email}}</a>
+					 		<i class="la la-at la-lg"></i>  <strong>Email:</strong>  <a href="mailto:{{$entry->email}}">{{$entry->email}}</a>
 					  	</li>
 					  	@endisset
 					  	<li class="list-group-item">
@@ -186,7 +186,7 @@
 <div class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>{{count($entry->visits)}} Visits</strong>
+		  <div class="card-header bg-orange text-white"><i class="la la-th la-lg"></i> <strong>{{count($entry->visits)}} Visits</strong>
      		
 
 		  </div>
@@ -202,9 +202,10 @@
 			  <tbody>
 			    @foreach ($entry->visits as $visitz)
 			    <tr>
-			      <td><a href="/lab/visit/{{$visitz->id}}/show">{{$visitz->id}}</a></td>
-			      <td>{{$visitz->created_at}}</td>
-			      <td>{{$visitz->referenced_by}}</td>
+			      <td><i class="la la-th-list la-lg"></i> <a href="/lab/visit/{{$visitz->id}}/show">{{$visitz->id}}</a></td>
+			      <td><i class="la la-dashboard la-lg"></i> {{$visitz->created_at}}</td>
+			      <td><i class="la la-ellipsis-v la-lg"></i> {{$visitz->referenced_by}}</td>
+
 			    </tr>
 			    @endforeach
 			  </tbody>
@@ -221,7 +222,7 @@
 <div id="notes" class="row d-flex">
 	<div class=" col-sm-12 col-md-12 d-print-none">
 		<div class="card">
-			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Notes</strong></div>
+			<div class="card-header bg-yellow"><i class="la la-exclamation-triangle la-lg"></i> <strong>Notes</strong></div>
 			<div class="card-body">
 					{{$entry->notes}}
 			</div>
