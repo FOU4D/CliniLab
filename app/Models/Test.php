@@ -25,6 +25,7 @@ class Test extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $casts = [ 'normal_values' => 'array',];
 
     /*
     |--------------------------------------------------------------------------

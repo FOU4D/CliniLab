@@ -29,6 +29,9 @@ class RequestCrudController extends CrudController
         CRUD::setModel(\App\Models\Request::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/request');
         CRUD::setEntityNameStrings('test request', 'test requests');
+        $this->crud->setShowView('request.show');
+
+
     }
 
     /**
@@ -116,7 +119,7 @@ $this->crud->enableBulkActions();
             'name'      => 'visit_id',
             'attribute' => 'id',
             'tab'       => 'Requested Test',
-		'default'    => \Request::has('visit_id')?\Request::has('visit_id'):false, // default value
+		'default'    => \Request::has('visit_id')?\Request::has('visit_id'):true, // default value
         ],
         [
             'name' => 'notes', 

@@ -62,26 +62,26 @@ class Individual extends Model
     */
 
 
-public function setAddressAttribute($value)
-{
-    $this->attributes['address'] = json_encode($value);
-}
+//public function setAddressAttribute($value)
+//{
+//    $this->attributes['address'] = json_encode($value);
+//}
 
-public function getAddressAttribute($value)
-{
-    return json_decode($value, true);
-}
+//public function getAddressAttribute($value)
+//{
+//    return json_decode($value, true);
+//}
 
 
-public function setPhonesAttribute($value)
-{
-    $this->attributes['phones'] = json_encode($value);
-}
+//public function setPhonesAttribute($value)
+//{
+//    $this->attributes['phones'] = json_encode($value);
+//}
 
-public function getPhonesAttribute($value)
-{
-    return json_decode($value, true);
-}
+//public function getPhonesAttribute($value)
+//{
+//    return json_decode($value, true);
+//}
 
 
 
