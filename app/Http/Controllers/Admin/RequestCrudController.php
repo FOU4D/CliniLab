@@ -39,7 +39,48 @@ class RequestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        //CRUD::setFromDb(); // columns
+
+
+$this->crud->addColumn([
+'type' => 'text',
+'name' => 'id',
+'label' => 'ID',
+    'searchLogic' => true,
+
+]);
+
+
+$this->crud->addColumn([
+'type' => 'text',
+'name' => 'visit_id',
+'label' => 'Visit ID',
+    'searchLogic' => true,
+
+]);
+
+
+$this->crud->addColumn([
+'type' => 'text',
+'name' => 'test_id',
+'label' => 'Test ID',
+]);
+
+$this->crud->addColumn([
+'type' => 'datetime',
+'name' => 'created_at',
+'label' => 'requested at',
+]);
+
+
+
+
+$this->crud->enableExportButtons();
+
+$this->crud->enableBulkActions();
+
+  
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

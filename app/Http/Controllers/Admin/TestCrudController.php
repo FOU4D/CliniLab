@@ -29,6 +29,8 @@ class TestCrudController extends CrudController
         CRUD::setModel(\App\Models\Test::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/test');
         CRUD::setEntityNameStrings('test', 'tests');
+        $this->crud->setShowView('test.show');
+
     }
 
     /**

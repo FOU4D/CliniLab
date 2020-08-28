@@ -97,7 +97,7 @@ $this->crud->enableBulkActions();
     {
         CRUD::setValidation(VisitRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
 
 
 
@@ -109,7 +109,10 @@ $this->crud->enableBulkActions();
             'label'     => 'Visitor Name:',
             'type'      => 'select2',
             'name'      => 'individual_id',
-            //'tab'       => 'Visitor',
+		'entity'    => 'individual',
+		'model'     => "App\Models\Individual",
+		'attribute' => 'name', 
+            //'tab'       =>/ 'Visitor',
         ],
         [
             'name' => 'referenced_by', 
