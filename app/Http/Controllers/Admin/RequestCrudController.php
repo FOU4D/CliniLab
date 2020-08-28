@@ -119,7 +119,7 @@ $this->crud->enableBulkActions();
             'name'      => 'visit_id',
             'attribute' => 'id',
             'tab'       => 'Requested Test',
-		'default'    => \Request::has('visit_id')?\Request::has('visit_id'):true, // default value
+		'default'    => \Request::has('visit_id')?\Request::has('visit_id'):true, 
         ],
         [
             'name' => 'notes', 

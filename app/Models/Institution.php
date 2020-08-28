@@ -22,7 +22,7 @@ class Institution extends Model
     //protected $fillable = ['name', 'type', 'relation'];
     // protected $hidden = [];
     // protected $dates = [];
-
+protected $casts = [ 'address' => 'array', 'phones' => 'array',];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
