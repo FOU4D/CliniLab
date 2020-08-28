@@ -116,6 +116,7 @@ $this->crud->enableBulkActions();
             'name'      => 'visit_id',
             'attribute' => 'id',
             'tab'       => 'Requested Test',
+		'default'    => \Request::has('visit_id')?\Request::has('visit_id'):false, // default value
         ],
         [
             'name' => 'notes', 
@@ -130,12 +131,14 @@ $this->crud->enableBulkActions();
             'type'      => 'checkbox',
             'name'      => 'sample_collected',
             'tab'       => 'Sample Collection',
+		'default' => True,
         ],
         [
             'label'     => 'Sample Status:',
             'type'      => 'enum',
             'name'      => 'sample_status',
             'tab'       => 'Sample Collection',
+		'default' => 'Received',
         ],
         [
             'label'     => 'Sample Notes:',

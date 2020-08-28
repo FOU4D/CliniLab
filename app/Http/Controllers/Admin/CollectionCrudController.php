@@ -29,6 +29,8 @@ class CollectionCrudController extends CrudController
         CRUD::setModel(\App\Models\Collection::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/collection');
         CRUD::setEntityNameStrings('collection', 'collections');
+        $this->crud->setShowView('collection.show');
+
     }
 
     /**

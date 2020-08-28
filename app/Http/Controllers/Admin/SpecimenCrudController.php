@@ -29,6 +29,8 @@ class SpecimenCrudController extends CrudController
         CRUD::setModel(\App\Models\Specimen::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/specimen');
         CRUD::setEntityNameStrings('specimen', 'specimens');
+        $this->crud->setShowView('specimen.show');
+
     }
 
     /**

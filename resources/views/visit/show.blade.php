@@ -106,6 +106,8 @@
 			    @endforeach
 			  </tbody>
 			</table>
+<a class="card-header-action btn-setting" href="/lab/request/create?visit_id={{$entry->id}}">
+				<i class="la la-plus-square la-lg"></i> Add Test Request</a>
 			</div>
 		</div>
 	</div>

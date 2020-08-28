@@ -112,6 +112,7 @@ $this->crud->enableBulkActions();
 		'entity'    => 'individual',
 		'model'     => "App\Models\Individual",
 		'attribute' => 'name', 
+'default'    => \Request::has('individual_id')?\Request::has('individual_id'):false,
             //'tab'       =>/ 'Visitor',
         ],
         [

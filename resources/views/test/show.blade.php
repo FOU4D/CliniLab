@@ -31,12 +31,21 @@
 
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
-        <div class="card text-dark bg-secondary">
-          <div class="card-header"><strong>ID: {{$entry->id}}</strong></div>
+        <div class="card">
+          <div class="card-header bg-success"><strong>ID: {{$entry->id}}</strong></div>
           <div class="card-body">
           		<ul class="list-group">
                   <li class="list-group-item"><strong>NAME: </strong>{{$entry->name}}</li>
                   <li class="list-group-item"><strong>Turnaround Time: </strong>{{$entry->turnaround_time}} {{$entry->turnaround_interval}}</li> 
+                  @if($entry->collections()->exists())
+                   <li class="list-group-item">
+	                  	<i class="la la-cubes la-lg"></i> <strong>Available on Collections: </strong>
+	                  	@foreach ($entry->collections as $icollect)
+						<i class="la la-cubes la-lg"></i><a href="/lab/collection/{{$icollect->id}}/show">{{$icollect->name}}</a> - 
+						@endforeach
+	               </li>
+	               @endif
+
               	</ul>
           </div>
         </div>
@@ -46,15 +55,15 @@
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
 		<div class="card">
-          <div class="card-header"><i class="fa fa-check"></i><strong>CODE: {{$entry->code}}</strong></div>
+          <div class="card-header bg-success"><i class=" la la-check"></i><strong>CODE: {{$entry->code}}</strong></div>
           <div class="card-body">
           		<ul class="list-group">
-                  <li class="list-group-item"><strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
-                  @if($entry->availability === 0)
-                  <li class="list-group-item"><strong>Availability: </strong> Not Available</li> 
+                  <li class="list-group-item"><i class="la la-info la-lg"></i> <strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
+                  @if($entry->isActive === 0)
+                  <li class="list-group-item"><i class="la la-toggle-off la-lg"></i> Not Available</li> 
                   @endif
-                  @if($entry->availability === 1)
-                  <li class="list-group-item"><strong>Availability: </strong> Test Available</li> 
+                  @if($entry->isActive === 1)
+                  <li class="list-group-item"><i class="la la-toggle-on la-lg"></i> Test Available</li> 
                   @endif
               	</ul>
           </div>
@@ -69,7 +78,7 @@
 <div id="footnotes" class="row d-flex">
 	<div class="col-sm-12 col-md-6">
 		<div class="card">
-          <div class="card-header"><i class="fa fa-check"></i><strong>Test Description</strong></div>
+          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Test Description</strong></div>
           <div class="card-body">
           		{{$entry->description}}
           </div>
@@ -78,7 +87,7 @@
 	</div>
 	<div class="col-sm-12 col-md-6">
 		<div class="card">
-          <div class="card-header"><i class="fa fa-check"></i><strong>Patient Preparation</strong></div>
+          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Patient Preparation</strong></div>
           <div class="card-body">
           		{{$entry->preparation}}
           </div>
@@ -86,21 +95,48 @@
 
 	</div>
 </div>
+<div id="footnotes" class="row d-flex">
+	<div class="col-sm-12 col-md-12">
 
-<pre>
-@php
-echo "test";@endphp
-	                  @if($entry->collections()->exists())
-	                  <li class="list-group-item">
-	                  	<i class="la la-user la-lg"></i> <strong>Affiliation: </strong>
-	                  	@foreach ($entry->collections as $institutionsz)
-						<a href="/lab/institution/{{$institutionsz->id}}/show">{{$institutionsz->name}}</a> - 
-						@endforeach
-	                  </li>
-	                  @endif
-@php
-@endphp
-</pre>
+		<div class="card">
+          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Normal Values</strong></div>
+          <div class="card-body">
+
+				<table class="table table-responsive-sm table-bordered table-striped table-hover table-sm">
+                      <thead>
+                        <tr>
+                          <th>Identifier</th>
+                          <th>Normal Value</th>
+                          <th>Value Units</th>
+                          <th>Interpretation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                @foreach ((array) $entry->normal_values as $key => $nvalues)
+          		@php
+				$normalv = (object) $nvalues;
+				@endphp
+                        <tr>
+                        	@isset($normalv->tidentifier)
+                          <td>{{$normalv->tidentifier}}</td>
+                          	@endisset
+                          	@isset($normalv->tvalues)
+                          <td>{{$normalv->tvalues}}</td>
+                          	@endisset
+                          	@isset($normalv->tunits)
+                          <td>{{$normalv->tunits}}</td>
+                          	@endisset
+                          	@isset($normalv->tinterpretation)
+                          <td>{{$normalv->tinterpretation}}</td>
+                          	@endisset
+                        </tr>
+                      </tbody>
+                    </table>
+                @endforeach
+          </div>
+        </div>
+	</div>
+</div>
 
 <div id="footnotes" class="row d-flex">
 	<div class="col-sm-12 col-md-6">

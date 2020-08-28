@@ -186,7 +186,10 @@
 <div class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>{{count($entry->visits)}} Visits</strong></div>
+		  <div class="card-header bg-info"><i class="la la-area-chart la-lg"></i> <strong>{{count($entry->visits)}} Visits</strong>
+     		
+
+		  </div>
 		  <div class="card-body">
 			<table class="table table-responsive-sm table-sm table-hover table-striped">
 			  <thead>
@@ -206,6 +209,7 @@
 			    @endforeach
 			  </tbody>
 			</table>
+			<a class="card-header-action btn-setting" href="/lab/visit/create?individual_id={{$entry->id}}"><i class="la la-plus-square la-lg"></i> Add Visit</a>
 		  </div>
 		</div>
 	</div>

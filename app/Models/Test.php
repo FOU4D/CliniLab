@@ -68,4 +68,18 @@ class Test extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+public function setNormalValuesAttribute($value)
+{
+    $this->attributes['normal_values'] = json_encode($value);
+}
+
+public function getNormalValuesAttribute($value)
+{
+    return json_decode($value, true);
+}
+
+
+
+
 }
