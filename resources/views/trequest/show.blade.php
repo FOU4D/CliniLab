@@ -34,7 +34,7 @@
 			<div class="card-header bg-gray-500"><i class="la la-barcode la-lg"></i>  <strong>Test Request ID:</strong>{{$entry->id}}</div>
 			<div class="card-body">
 				<ul class="list-group"> 
-					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test Name: </strong>{{$entry->test['name']}}</li>
+					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test Name: </strong><a href="/lab/test/{{$entry->test_id}}/show">{{$entry->test['name']}}</a></li>
 					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test ID: </strong><a href="/lab/test/{{$entry->test_id}}/show">{{$entry->test_id}}</a></li>
 					<li class="list-group-item"><i class="la la-th-list la-lg"></i><strong>Visit ID: </strong><a href="/lab/visit/{{$entry->visit_id}}/show">{{$entry->visit_id}}</a></li>
 					<li class="list-group-item"><i class="la la-user la-lg"></i><strong>Visitor ID: </strong><a href="/lab/individual/{{$entry->visit['individual_id']}}/show">{{$entry->visit['individual_id']}}</a></li>

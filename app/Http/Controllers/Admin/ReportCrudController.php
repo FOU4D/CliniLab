@@ -18,6 +18,7 @@ class ReportCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -29,6 +30,8 @@ class ReportCrudController extends CrudController
         CRUD::setModel(\App\Models\Report::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/report');
         CRUD::setEntityNameStrings('report', 'reports');
+        $this->crud->setShowView('report.show');
+
     }
 
     /**
@@ -39,9 +42,43 @@ class ReportCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        //CRUD::setFromDb(); // columns
 
-        /**
+
+            $this->crud->addColumn([
+            'name' => 'id',
+            'label' => 'Report ID',
+            'type' => 'text',
+            ]);
+
+            $this->crud->addColumn([
+            'name' => 'created_at',
+            'label' => 'Created',
+            'type' => 'datetime',
+            ]);
+
+            $this->crud->addColumn([
+            'name' => 'updated_at',
+            'label' => 'Updated',
+            'type' => 'datetime',
+            ]);
+
+
+            $this->crud->addColumn([
+            'name' => 'request_id',
+            'label' => 'Req. ID',
+            'type' => 'text',
+            ]);
+
+        $this->crud->filters();
+
+
+
+        $this->crud->enableExportButtons();
+
+
+
+       /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
@@ -98,25 +135,31 @@ class ReportCrudController extends CrudController
 	    'tab'   => 'Results',
             'fields' => [
                 [
-                    'name'    => 'tidentifier',
+                    'name'    => 'rid',
                     'type'    => 'text',
                     'label'   => 'Identifier:',
                     'wrapper' => ['class' => 'form-group col-md-2'],
                 ],
                 [
-                    'name'    => 'tvalues',
+                    'name'    => 'rvalues',
                     'type'    => 'text',
                     'label'   => 'Values:',
                     'wrapper' => ['class' => 'form-group col-md-6'],
                 ],
                 [
-                    'name'    => 'tunits',
+                    'name'    => 'runits',
                     'type'    => 'text',
                     'label'   => 'Units:',
                     'wrapper' => ['class' => 'form-group col-md-3'],
                 ],
                 [
-                    'name'    => 'tinterpretation',
+                    'name'    => 'rreference',
+                    'type'    => 'text',
+                    'label'   => 'Reference Label:',
+                    'wrapper' => ['class' => 'form-group col-md-12'],
+                ],
+                [
+                    'name'    => 'rinterpretation',
                     'type'    => 'textarea',
                     'label'   => 'Interpretation:',
                     'wrapper' => ['class' => 'form-group col-md-12'],

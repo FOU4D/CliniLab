@@ -23,6 +23,8 @@ class Report extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    protected $casts = [ 'results' => 'array',];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
