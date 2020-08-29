@@ -15,7 +15,7 @@
 	<section class="container-fluid d-print-none">
     	<a href="javascript: window.print();" class="btn float-right"><i class="la la-print"></i></a>
 		<h2>
-			<i class="la la-eyedropper la-lg"></i> 
+			<i class="la la-bar-chart la-lg"></i> 
 	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name !!}</span>
 	        <small>{!! $crud->getSubheading() ?? mb_ucfirst(trans('backpack::crud.preview')).' '.$crud->entity_name !!}.</small>
 	        @if ($crud->hasAccess('list'))
@@ -29,25 +29,102 @@
 
 
 <div id="notes" class="row d-flex">
-	<div class=" col-sm-12 col-md-12">
+	<div class=" col-sm-12 col-md-6">
 		<div class="card">
-			<div class="card-header bg-gray-500"><i class="la la-barcode la-lg"></i>  <strong>Test Request ID:</strong>{{$entry->id}}</div>
+			<div class="card-header bg-purple text-white"><i class="la la-barcode la-lg"></i>  <strong>Report ID:</strong>{{$entry->id}}</div>
 			<div class="card-body">
 				<ul class="list-group"> 
-					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test Name: </strong><a href="/lab/test/{{$entry->test_id}}/show">{{$entry->test['name']}}</a></li>
-					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test ID: </strong><a href="/lab/test/{{$entry->test_id}}/show">{{$entry->test_id}}</a></li>
-					<li class="list-group-item"><i class="la la-th-list la-lg"></i><strong>Visit ID: </strong><a href="/lab/visit/{{$entry->visit_id}}/show">{{$entry->visit_id}}</a></li>
-					<li class="list-group-item"><i class="la la-user la-lg"></i><strong>Visitor ID: </strong><a href="/lab/individual/{{$entry->visit['individual_id']}}/show">{{$entry->visit['individual_id']}}</a></li>
+					
+					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Report Title: </strong>{{$entry->title}}</li>
+					<li class="list-group-item"><i class="la la-th-list la-lg"></i><strong>Report Status: </strong>{{$entry->status}}</li>
+					
 				</ul>
 			</div>
         </div>
  	</div>
-</div> 		
+ 		<div class=" col-sm-12 col-md-6">
+		<div class="card">
+			<div class="card-header bg-red text-white "><i class="la la-eyedropper la-lg"></i> <strong></strong></div>
+			<div class="card-body">
+				<ul class="list-group"> 
+				<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>By Dr. </strong>{{$entry->user['name']}}</li>
+
+				<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested ID: </strong><a href="/lab/visitrequest/{{$entry->request_id}}/show">{{$entry->request_id}}</a></li>
+				</ul>
+			</div>
+        </div>
+ 	</div>
+</div>
 
 
+<div id="footnotes" class="row d-flex">
+	<div class="col-sm-12 col-md-12">
 
+		<div class="card">
+          <div class="card-header bg-purple text-white"><i class="la la-code la-lg"></i><strong>Normal Values</strong></div>
+          <div class="card-body">
 
+				<table class="table table-responsive-sm table-bordered table-striped table-hover table-sm">
+                      <thead>
+                        <tr>
+                          <th>Identifier</th>
+                          <th>Normal Value</th>
+                          <th>Reference Values</th>
+                          <th>Interpretation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+						@foreach ($entry->results as $resultkey => $resultvalue)
+			          		@php
+							$resultvalues = (object) $resultvalue;
+							@endphp
+                        <tr>
+                        	
+                          <td>
+                          	<strong>
+                          		@isset($resultvalues->rid)
+                          		{{$resultvalues->rid}}</strong>
+                          		@endisset
+                          	</td>
+                          	
+                          <td>
+                          	@isset($resultvalues->rvalues)
+                          	{{$resultvalues->rvalues}}
+                          	  {{$resultvalues->runits}}
+                          	@endisset
+                          </td>
+                          	
+                          <td>
+                          	@isset($resultvalues->rreference)
+                          	{{$resultvalues->rreference}}
+                          	@endisset
+                          </td>
+                          <td>
+                          	@isset($resultvalues->rinterpretation)
+                          	{{$resultvalues->rinterpretation}}
+                          	@endisset
+                          </td>
+                          	
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                
+          </div>
+        </div>
+	</div>
+</div>
 
+<div id="" class="row d-flex">
+	<div class=" col-sm-12 col-md-12 d-print-none">
+		<div class="card">
+			<div class="card-header bg-yellow"><i class="la la-exclamation-triangle la-lg"></i> <strong>Report:</strong></div>
+			<div class="card-body">
+					{{$entry->report}}
+			</div>
+        </div>
+ 	</div>
+</div>
 
 @isset($entry->notes)
 <div id="notes" class="row d-flex">

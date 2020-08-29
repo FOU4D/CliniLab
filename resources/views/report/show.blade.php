@@ -115,7 +115,16 @@
 	</div>
 </div>
 
-
+<div id="" class="row d-flex">
+	<div class=" col-sm-12 col-md-12 d-print-none">
+		<div class="card">
+			<div class="card-header bg-yellow"><i class="la la-exclamation-triangle la-lg"></i> <strong>Report:</strong></div>
+			<div class="card-body">
+					{{$entry->report}}
+			</div>
+        </div>
+ 	</div>
+</div>
 
 @isset($entry->notes)
 <div id="notes" class="row d-flex">
