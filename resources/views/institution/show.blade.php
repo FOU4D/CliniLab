@@ -63,15 +63,15 @@
 					</div>
 					<div class="card-body">
 						<div id="addresses" class="row d-flex">
-							@foreach ((array) $entry->address as $key => $instaddressarr)
+							@foreach ( (array) $entry->address as $addrkey => $instaddressarr)
 							<div class=" col-sm-12 col-md-6">
 								@php
 								$insaddress = (object) $instaddressarr;
 								@endphp
 									<i class="la la-map-marker la-lg"></i>
-								@if($insaddress->hq != 0 )
+								@isset($insaddress->hq)
 									<i class="la la-building la-lg"></i>
-								@endif
+								@endisset
 
 								<br>
 								@isset($insaddress->address1)
