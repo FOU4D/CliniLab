@@ -30,7 +30,7 @@
 
 
 	<div class="col-sm-12 col-md-8">
-		<div id="basics">
+		<div id="basics" class="col-sm-12 col-md-12">
 			<div class="card">
 				<div class="card-header bg-primary bg-pink">
 					<i class="la la-barcode"></i>
@@ -55,14 +55,46 @@
 			</div>
 		</div>
 		<div id="addressesoffice" class=" col-sm-12 col-md-12">
+		@isset($entry->address)
+			<div class="card">
+					<div class="card-header bg-teal text-white">
+						<i class="la la-map la-lg"></i> <strong>Addresses:</strong>
+					</div>
+					<div class="card-body">
+						<div id="addresses" class="row d-flex">
+							@foreach ((array) $entry->address as $key => $instaddressarr)
+							<div class=" col-sm-12 col-md-6">
+								@php
+								$insaddress = (object) $instaddressarr;
+								@endphp
+									<i class="la la-map-marker la-lg"></i>
+								@if($insaddress->hq != 0 )
+									<i class="la la-building la-lg"></i>
+								@endif
+
+								<br>
+								@isset($insaddress->address1)
+								{{$insaddress->address1}}, <br>
+								{{$insaddress->address2}}, <br>
+								{{$insaddress->neighbourhood}}, {{$insaddress->city}}, <br>
+								{{$insaddress->state}}, {{$insaddress->country}}, <br>
+								@endisset
+							</div>
+							@endforeach
+						</div>			
+						
+					</div>
+			</div>
+		@endisset
 		</div>
 	</div>
+
 	<div class="col-sm-12 col-md-4">
 		@isset($entry->description)
 		
 			<div class=" col-sm-12 col-md-12">
 				<div class="card">
-					<div class="card-header bg-blue text-white">
+					<div class="card-header bg-gray-300">
 						<i class="la la-info la-lg"></i> <strong>Description</strong>
 					</div>
 					<div class="card-body">
@@ -72,10 +104,53 @@
 	     	</div>
 		
 		@endisset	
-	</div>
+	
 	<div id="contacts" class=" col-sm-12 col-md-12">
-	</div>
+			<div class="card">
+				<div class="card-header bg-green text-white">
+					<i class="la la-tty la-lg"></i>
+					<strong>Contact Info:</strong>
+				</div>
+				<div class="card-body">
+					<ul class="list-group">
+						@isset($entry->email)
+					 	<li class="list-group-item">
+					 		<i class="la la-at la-lg"></i>  <strong>Email:</strong>  <a href="mailto:{{$entry->email}}">{{$entry->email}}</a>
+					  	</li>
+					  	@endisset
+					  	@isset($entry->website)
+					 	<li class="list-group-item">
+					 		<i class="la la-link la-lg"></i>  <strong>website:</strong>  <a href="{$entry->website}}">{{$entry->website}}</a>
+					  	</li>
+					  	@endisset
+					  	<li class="list-group-item">
+					  		<i class="la la-phone la-lg">  </i> <strong>Primary:</strong>  <a href="tel:{{$entry->phone}}">{{$entry->phone}}</a>
+					  	</li>
 
+					  	@if($entry->phones !== null)
+					  	@foreach ($entry->phones as $key => $instphonesarr)
+						<li class="list-group-item">
+							@php
+							$instphones = (object) $instphonesarr;
+							@endphp
+							<i class="la la-ellipsis-v la-lg"></i>  <a href="tel:{{$instphones->pnumber}}">{{$instphones->pnumber}}</a>
+							@if($instphones->pwhatsapp != 0 )
+								<i class="la la-whatsapp la-lg"></i>
+							@endif
+							@if($instphones->pmobile != 0 )
+								<i class="la la-mobile la-lg"></i>
+							@endif
+							@if($instphones->pwork != 0 )
+								<i class="la la-building la-lg"></i>
+							@endif
+						</li>
+						@endforeach
+						@endif
+					</ul>
+				</div>
+			</div>
+	</div>
+</div>
 </div>
 @if($entry->members()->exists())
 <div id="members" class="row d-flex">
@@ -87,7 +162,7 @@
 			  <thead>
 			    <tr>
 			    	<th><strong>User ID</strong></th>
-			    	<th><strong>Name</strong>></th>
+			    	<th><strong>Name</strong></th>
 			    	<th><strong>Joined at</strong></th>
 			    </tr>
 			  </thead>
@@ -95,7 +170,7 @@
 			    @foreach ($entry->members as $memberz)
 			    <tr>
 			      <td><i class="la la-barcode la-lg"></i> <a href="/lab/individual/{{$memberz->id}}/show">{{$memberz->id}}</a></td>
-			      <td><i class="la la-users la-lg"> </i>{{$memberz->name}}</td>
+			      <td><i class="la la-user la-lg"> </i>{{$memberz->name}}</td>
 			      <td><i class="la la-dashboard la-lg"> </i>{{$memberz->created_at}}</td>
 			    </tr>
 			    @endforeach
