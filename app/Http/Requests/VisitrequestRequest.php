@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrequestRequest extends FormRequest
+class VisitrequestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,6 @@ class TrequestRequest extends FormRequest
     {
         return [
             // 'name' => 'required|min:5|max:255'
-	'visit_id' => 'required',
-	'test_id' => 'required',
         ];
     }
 

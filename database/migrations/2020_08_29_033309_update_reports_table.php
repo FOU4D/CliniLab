@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestRequestsTable extends Migration
+class UpdateReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,18 @@ class CreateTestRequestsTable extends Migration
      */
     public function up()
     {
-        
 
+Schema::disableForeignKeyConstraints();
+
+Schema::table('reports', function (Blueprint $table) {
+    $table->dropForeign(['request_id']);
+$table->foreign('request_id')->references('id')->on('visitrequests');
+});
+
+Schema::enableForeignKeyConstraints();
+
+
+        //
     }
 
     /**
@@ -24,5 +34,6 @@ class CreateTestRequestsTable extends Migration
      */
     public function down()
     {
+        //
     }
 }

@@ -29,9 +29,7 @@ class TrequestCrudController extends CrudController
         CRUD::setModel(\App\Models\Trequest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/trequest');
         CRUD::setEntityNameStrings('test request', 'test requests');
-        $this->crud->setShowView('request.show');
-
-
+	$this->crud->setShowView('trequest.show');
     }
 
     /**
@@ -42,8 +40,7 @@ class TrequestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        //CRUD::setFromDb(); // columns
-
+        
 
 $this->crud->addColumn([
 'type' => 'text',
@@ -82,9 +79,6 @@ $this->crud->enableExportButtons();
 
 $this->crud->enableBulkActions();
 
-  
-
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -102,8 +96,7 @@ $this->crud->enableBulkActions();
     {
         CRUD::setValidation(TrequestRequest::class);
 
-        //CRUD::setFromDb(); // fields
-
+        
 
         $this->crud->addFields([
 
@@ -152,7 +145,6 @@ $this->crud->enableBulkActions();
 
 
         ]);
-
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

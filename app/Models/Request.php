@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Request extends Model
+class Trequest extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Request extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'requests';
+    protected $table = 'trequests';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Spatie\Permission\Traits\HasRoles;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Test extends Model
+class Trequest extends Model
 {
     use CrudTrait;
-    use HasRoles;
 
     /*
     |--------------------------------------------------------------------------
@@ -18,14 +15,13 @@ class Test extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'tests';
+    protected $table = 'trequests';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['visit_id', 'test_id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $casts = [ 'normal_values' => 'array',];
 
     /*
     |--------------------------------------------------------------------------
@@ -38,18 +34,18 @@ class Test extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    	public function specimen()
-    	   {
-        	return $this->belongsTo('App\Models\Specimen');
-	    }
-	public function collections()
-	{
-	    return $this->belongsToMany('App\Models\Collection', 'collection_test');
-	}
-
-    public function visitrequest()
+    public function test()
     {
-        return $this->hasMany('App\Models\Visitrequest');
+        return $this->belongsTo('App\Models\Test');
+    }
+    public function visit()
+    {
+        return $this->belongsTo('App\Models\Visit');
+    }
+
+    public function report()
+    {
+        return $this->hasMany('App\Models\Report');
     }
 
     /*
@@ -69,18 +65,4 @@ class Test extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-
-public function setNormalValuesAttribute($value)
-{
-    $this->attributes['normal_values'] = json_encode($value);
-}
-
-public function getNormalValuesAttribute($value)
-{
-    return json_decode($value, true);
-}
-
-
-
-
 }

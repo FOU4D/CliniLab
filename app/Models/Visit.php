@@ -41,9 +41,9 @@ class Visit extends Model
         return $this->belongsTo('App\Models\Individual');
     }
 
-    public function request()
+    public function visitrequest()
     {
-        return $this->hasMany('App\Models\Request');
+        return $this->hasMany('App\Models\Visitrequest');
     }
     /*
     |--------------------------------------------------------------------------

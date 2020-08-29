@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\TrequestRequest;
+use App\Http\Requests\VisitrequestRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class TrequestCrudController
+ * Class VisitrequestCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class TrequestCrudController extends CrudController
+class VisitrequestCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,12 +26,9 @@ class TrequestCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Trequest::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/trequest');
-        CRUD::setEntityNameStrings('test request', 'test requests');
-        $this->crud->setShowView('request.show');
-
-
+        CRUD::setModel(\App\Models\Visitrequest::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/visitrequest');
+        CRUD::setEntityNameStrings('visit request', 'visit requests');
     }
 
     /**
@@ -82,9 +79,6 @@ $this->crud->enableExportButtons();
 
 $this->crud->enableBulkActions();
 
-  
-
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -100,7 +94,7 @@ $this->crud->enableBulkActions();
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TrequestRequest::class);
+        CRUD::setValidation(VisitrequestRequest::class);
 
         //CRUD::setFromDb(); // fields
 
@@ -129,30 +123,8 @@ $this->crud->enableBulkActions();
             'tab'   => 'Requested Test',
         ],
 
-        [
-            'label'     => 'Sample Collected',
-            'type'      => 'checkbox',
-            'name'      => 'sample_collected',
-            'tab'       => 'Sample Collection',
-		'default' => True,
-        ],
-        [
-            'label'     => 'Sample Status:',
-            'type'      => 'enum',
-            'name'      => 'sample_status',
-            'tab'       => 'Sample Collection',
-		'default' => 'Received',
-        ],
-        [
-            'label'     => 'Sample Notes:',
-            'type'      => 'textarea',
-            'name'      => 'sample_notes',
-            'tab'       => 'Sample Collection',
-        ],
-
-
+ 
         ]);
-
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

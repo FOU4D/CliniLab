@@ -15,7 +15,8 @@
 	<section class="container-fluid d-print-none">
     	<a href="javascript: window.print();" class="btn float-right"><i class="la la-print"></i></a>
 		<h2>
-	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name_plural !!}</span>
+			<i class="la la-eyedropper la-lg"></i> 
+	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name !!}</span>
 	        <small>{!! $crud->getSubheading() ?? mb_ucfirst(trans('backpack::crud.preview')).' '.$crud->entity_name !!}.</small>
 	        @if ($crud->hasAccess('list'))
 	          <small class=""><a href="{{ url($crud->route) }}" class="font-sm"><i class="la la-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a></small>
@@ -30,32 +31,23 @@
 <div id="notes" class="row d-flex">
 	<div class=" col-sm-12 col-md-6">
 		<div class="card">
-			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Test Request ID:</strong>{{$entry->id}}</div>
+			<div class="card-header bg-gray-500"><i class="la la-barcode la-lg"></i>  <strong>Test Request ID:</strong>{{$entry->id}}</div>
 			<div class="card-body">
 				<ul class="list-group"> 
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Requested Test Name: </strong>{{$entry->test['name']}}</li>
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Requested Test ID: </strong><a href="/lab/test/{{$entry->test_id}}}/show">{{$entry->test_id}}</a></li>
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Visit ID: </strong><a href="/lab/visit/{{$entry->visit_id}}/show">{{$entry->visit_id}}</a></li>
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Visitor ID: </strong><a href="/lab/individual/{{$entry->visit['individual_id']}}/show">{{$entry->visit['individual_id']}}</a></li>
+					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test Name: </strong>{{$entry->test['name']}}</li>
+					<li class="list-group-item"><i class="la la-flask la-lg"></i><strong>Requested Test ID: </strong><a href="/lab/test/{{$entry->test_id}}/show">{{$entry->test_id}}</a></li>
+					<li class="list-group-item"><i class="la la-th-list la-lg"></i><strong>Visit ID: </strong><a href="/lab/visit/{{$entry->visit_id}}/show">{{$entry->visit_id}}</a></li>
+					<li class="list-group-item"><i class="la la-user la-lg"></i><strong>Visitor ID: </strong><a href="/lab/individual/{{$entry->visit['individual_id']}}/show">{{$entry->visit['individual_id']}}</a></li>
 				</ul>
 			</div>
         </div>
  	</div>
  		<div class=" col-sm-12 col-md-6">
- 			$indid = {{$entry->visit['individual_id']}};
- 			$indname = DB::table('individuals')
-                     ->select('name'))
-                     ->where('id', '=', $indid)
-                     ->get();
-            {{$indname}}
-
 		<div class="card">
-			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Sample Status:</strong></div>
+			<div class="card-header bg-red text-white "><i class="la la-eyedropper la-lg"></i> <strong>Sample Status:</strong></div>
 			<div class="card-body">
 				<ul class="list-group"> 
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>is Collected?</strong>{{$entry->sample_collected}}</li>
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Sample Status: </strong>{{$entry->sample_status}}</li>
-					<li class="list-group-item"><i class="la la-warning la-lg"></i><strong>Sample Notes: </strong>{{$entry->sample_notes}}</li>
+
 				</ul>
 			</div>
         </div>
@@ -71,7 +63,7 @@
 <div id="notes" class="row d-flex">
 	<div class=" col-sm-12 col-md-12 d-print-none">
 		<div class="card">
-			<div class="card-header bg-warning"><i class="la la-warning la-lg"></i> <strong>Notes</strong></div>
+			<div class="card-header bg-yellow"><i class="la la-exclamation-triangle la-lg"></i> <strong>Notes</strong></div>
 			<div class="card-body">
 					{{$entry->notes}}
 			</div>

@@ -11,17 +11,15 @@
     </ul>
 </li>
 
-
-<!-- Users, Roles, Permissions -->
+<!-- The Lab -->
 <li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>
-	<ul class="nav-dropdown-items">
-	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
-	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
-	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
-	</ul>
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-flask"></i> The Lab</a>
+        <ul class="nav-dropdown-items">
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visit') }}'><i class='nav-icon la la-th-list'></i> Visits</a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('report') }}'><i class='nav-icon la la-bar-chart'></i> Reports</a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visitrequest') }}'><i class='nav-icon la la-eyedropper'></i> Visit Requests</a></li>
+        </ul>
 </li>
-
 
 <!-- References Database -->
 <li class="nav-item nav-dropdown">
@@ -33,6 +31,17 @@
         </ul>
 </li>
 
+
+<!-- Users, Roles, Permissions -->
+<li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>
+	<ul class="nav-dropdown-items">
+	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
+	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
+	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
+	</ul>
+</li>
+
 <!-- Account and logout -->
 <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-lg la-star"></i>My Account</a>
@@ -41,11 +50,3 @@
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('logout') }}"><i class="la la-sign-out"></i> Logout</a></li>
         </ul>
 </li>
-
-
-
-
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visit') }}'><i class='nav-icon la la-question'></i> Visits</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('request') }}'><i class='nav-icon la la-question'></i> Test Requests</a></li>
-
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('report') }}'><i class='nav-icon la la-question'></i> Reports</a></li>

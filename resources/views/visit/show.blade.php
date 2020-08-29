@@ -84,7 +84,7 @@
 		<div class="card">
 			<div class="card-header bg-gray-500">
 				<i class="la la-eyedropper la-lg"></i>
-				<strong>{{count($entry->request)}} Test Requested</strong>
+				<strong>{{count($entry->visitrequest)}} Test Requested</strong>
 			</div>
 			<div class="card-body">
 			<table class="table table-responsive-sm table-sm table-hover table-striped">
@@ -96,16 +96,16 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    @foreach ($entry->request as $requestzx)
+			    @foreach ($entry->visitrequest as $requestzx)
 			    <tr>
-			      <td><i class="la la-barcode la-lg"></i><a href="/lab/request/{{$requestzx->id}}/show">{{$requestzx->id}}</a></td>
+			      <td><i class="la la-barcode la-lg"></i><a href="/lab/visitrequest/{{$requestzx->id}}/show">{{$requestzx->id}}</a></td>
 			      <td><i class="la la-flask la-lg"></i><a href="/lab/test/{{$requestzx->test_id}}/show">{{$requestzx->test_id}}</a></td>
 			      <td><i class="la la-calendar la-lg"></i>{{$requestzx->created_at}}</td>
 			    </tr>
 			    @endforeach
 			  </tbody>
 			</table>
-				<a class="card-header-action btn-setting" href="/lab/request/create?visit_id={{$entry->id}}">
+				<a class="card-header-action btn-setting" href="/lab/visitrequest/create?visit_id={{$entry->id}}">
 				<i class="la la-plus-square la-lg"></i> Add Test Request</a>
 			</div>
 		</div>
