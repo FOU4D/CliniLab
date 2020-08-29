@@ -29,7 +29,7 @@
 
 
 <div id="notes" class="row d-flex">
-	<div class=" col-sm-12 col-md-6">
+	<div class=" col-sm-12 col-md-12">
 		<div class="card">
 			<div class="card-header bg-gray-500"><i class="la la-barcode la-lg"></i>  <strong>Test Request ID:</strong>{{$entry->id}}</div>
 			<div class="card-body">
@@ -42,17 +42,7 @@
 			</div>
         </div>
  	</div>
- 		<div class=" col-sm-12 col-md-6">
-		<div class="card">
-			<div class="card-header bg-red text-white "><i class="la la-eyedropper la-lg"></i> <strong>Sample Status:</strong></div>
-			<div class="card-body">
-				<ul class="list-group"> 
-
-				</ul>
-			</div>
-        </div>
- 	</div>
-</div>
+</div> 		
 
 
 

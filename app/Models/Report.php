@@ -35,7 +35,7 @@ class Report extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function Visitrequest()
+    public function visitrequest()
     {
         return $this->belongsTo('App\Models\Visitrequest');
     }

@@ -68,6 +68,7 @@ class ReportCrudController extends CrudController
             'type'      => 'select2',
             'name'      => 'request_id',
             'attribute' => 'id',
+		'model' => 'App\Models\Visitrequest',
             'tab'       => 'Requested Test',
         ],
         [
@@ -158,3 +159,4 @@ class ReportCrudController extends CrudController
         $this->setupCreateOperation();
     }
 }
+
