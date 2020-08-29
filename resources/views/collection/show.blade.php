@@ -15,7 +15,8 @@
 	<section class="container-fluid d-print-none">
     	<a href="javascript: window.print();" class="btn float-right"><i class="la la-print"></i></a>
 		<h2>
-	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name_plural !!}</span>
+			<i class="la la-folder la-lg"></i>
+	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name !!}</span>
 	        <small>{!! $crud->getSubheading() ?? mb_ucfirst(trans('backpack::crud.preview')).' '.$crud->entity_name !!}.</small>
 	        @if ($crud->hasAccess('list'))
 	          <small class=""><a href="{{ url($crud->route) }}" class="font-sm"><i class="la la-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a></small>
@@ -32,11 +33,11 @@
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
         <div class="card">
-          <div class="card-header bg-primary"><i class="la la-barcode la-lg"></i><strong> ID: {{$entry->id}}</strong></div>
+          <div class="card-header bg-red text-white"><i class="la la-barcode la-lg"></i><strong> ID: {{$entry->id}}</strong></div>
           <div class="card-body">
           		<ul class="list-group">
-                  <li class="list-group-item"><i class="la la-tag la-lg"></i><strong>NAME: </strong>{{$entry->name}}</li>
-                  <li class="list-group-item"><i class="la la-check"></i><strong>CODE: </strong>{{$entry->code}}</li>
+                  <li class="list-group-item"><i class="la la-folder la-lg"></i><strong>NAME: </strong>{{$entry->name}}</li>
+                  <li class="list-group-item"><i class="la la-ticket la-lg"></i><strong>CODE: </strong>{{$entry->code}}</li>
 
               	</ul>
           </div>
@@ -47,19 +48,20 @@
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
 		<div class="card">
-          <div class="card-header bg-primary"><i class="la la-tag la-lg"></i> info</div>
+          <div class="card-header bg-gray-300"><i class="la la-info la-lg"></i> info</div>
           <div class="card-body">
           		<ul class="list-group">
           			@isset($entry->specimen)
-                  <li class="list-group-item"><i class="la la-tag la-lg"></i> <strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
+                  <li class="list-group-item"><i class="la la-filter la-lg"></i> <strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
                   @endisset
                   @isset($entry->turnaround_time)
-                  <li class="list-group-item"><i class="la la-clock-o la-lg"></i><strong>Turnaround Time: </strong>{{$entry->turnaround_time}} {{$entry->turnaround_interval}}</li> 
+                  <li class="list-group-item"><i class="la la-dashboard la-lg"></i><strong>Turnaround Time: </strong>{{$entry->turnaround_time}} {{$entry->turnaround_interval}}</li> 
                   @endisset
-                  @if($entry->availability == 0)
-                  <li class="list-group-item"><i class="la la-toggle-off la-lg"></i> <strong> Not Available</strong></li> 
-                  @else
-                  <li class="list-group-item"><i class="la la-toggle-on la-lg"></i> <strong> Available</strong></li> 
+                  @if($entry->isActive === 0)
+                  <li class="list-group-item"><i class="la la-toggle-off la-lg"></i> Not Available</li> 
+                  @endif
+                  @if($entry->isActive === 1)
+                  <li class="list-group-item"><i class="la la-toggle-on la-lg"></i> Test Available</li> 
                   @endif
 
               	</ul>
@@ -78,7 +80,7 @@
 	<div class="col-sm-12 col-md-4">
 		@isset($entry->description)
 		<div class="card">
-          <div class="card-header bg-secondary"><i class="la la-check"></i><strong>Test Description</strong></div>
+          <div class="card-header bg-gray-500"><i class="la la-info la-lg"></i><strong>Test Description</strong></div>
           <div class="card-body">
           		{{$entry->description}}
           </div>
@@ -88,7 +90,7 @@
 	<div class="col-sm-12 col-md-4">
 		@isset($entry->preparation)
 		<div class="card">
-          <div class="card-header bg-secondary"><i class="la la-check"></i><strong>Patient Preparation</strong></div>
+          <div class="card-header bg-gray-400"><i class="la la-user la-lg"></i><strong>Patient Preparation</strong></div>
           <div class="card-body">
           		{{$entry->preparation}}
           </div>
@@ -99,7 +101,7 @@
 	<div class="col-sm-12 col-md-4">
 		@isset($entry->normal_values)
 		<div class="card">
-          <div class="card-header bg-secondary"><i class="la la-check"></i><strong>Normal Values</strong></div>
+          <div class="card-header bg-purple text-white"><i class="la la-code la-lg"></i><strong>Normal Values</strong></div>
           <div class="card-body">
           		{{$entry->normal_values}}
           </div>
@@ -113,24 +115,24 @@
 <div id="footnotes" class="row d-flex">
 	<div class="col-sm-12 col-md-12">
 		<div class="card">
-          <div class="card-header bg-success"><i class="la la-terminal la-lg"></i><strong>Included Tests</strong></div>
+          <div class="card-header bg-red text-white"><i class="la la-folder la-lg"></i><strong>Included Tests</strong></div>
           <div class="card-body">
 
 			<table class="table table-responsive-sm table-bordered table-striped table-hover table-sm">
 			  <thead>
 			    <tr>
-			      <th><i>ID</i></th>
-			      <th><i>Test Name</i></th>
-			      <th><i>Turnaround</i></th>
+			      <th><strong>ID</strong></th>
+			      <th><strong><i>Test Name</strong></th>
+			      <th><strong><i>Turnaround</strong></th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	@foreach ($entry->tests as $atest)
 			    <tr>
 
-			      <td><strong><a href="/lab/test/{{$atest->id}}/show">{{$atest->id}}</a></strong></td>
+			      <td><i class="la la-flask la-lg"></i><strong><a href="/lab/test/{{$atest->id}}/show">{{$atest->id}}</a></strong></td>
 			      <td><a href="/lab/test/{{$atest->id}}/show">{{$atest->name}}</a></td>
-			      <td>{{$atest->turnaround_time}} {{$atest->turnaround_interval}}</td>
+			      <td><i class="la la-dashboard la-lg"></i>{{$atest->turnaround_time}} {{$atest->turnaround_interval}}</td>
 
 			      
 			    </tr>
