@@ -45,7 +45,8 @@ class InstitutionCrudController extends CrudController
             $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number',
+            'type' => 'text',
+
             ]);
             $this->crud->addColumn([
             'name' => 'name',

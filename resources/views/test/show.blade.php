@@ -15,6 +15,7 @@
 	<section class="container-fluid d-print-none">
     	<a href="javascript: window.print();" class="btn float-right"><i class="la la-print"></i></a>
 		<h2>
+			<i class="la la-flask la-lg"></i>
 	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name_plural !!}</span>
 	        <small>{!! $crud->getSubheading() ?? mb_ucfirst(trans('backpack::crud.preview')).' '.$crud->entity_name !!}.</small>
 	        @if ($crud->hasAccess('list'))
@@ -32,19 +33,12 @@
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
         <div class="card">
-          <div class="card-header bg-success"><strong>ID: {{$entry->id}}</strong></div>
+          <div class="card-header bg-red text-white"><i class="la la-barcode la-lg"></i><strong>ID: {{$entry->id}}</strong></div>
           <div class="card-body">
           		<ul class="list-group">
-                  <li class="list-group-item"><strong>NAME: </strong>{{$entry->name}}</li>
-                  <li class="list-group-item"><strong>Turnaround Time: </strong>{{$entry->turnaround_time}} {{$entry->turnaround_interval}}</li> 
-                  @if($entry->collections()->exists())
-                   <li class="list-group-item">
-	                  	<i class="la la-cubes la-lg"></i> <strong>Available on Collections: </strong>
-	                  	@foreach ($entry->collections as $icollect)
-						<i class="la la-cubes la-lg"></i><a href="/lab/collection/{{$icollect->id}}/show">{{$icollect->name}}</a> - 
-						@endforeach
-	               </li>
-	               @endif
+                  <li class="list-group-item"><i class="la la-flask la-lg"></i><strong>NAME: </strong>{{$entry->name}}</li>
+                  <li class="list-group-item"><i class="la la-dashboard la-lg"></i><strong>Turnaround Time: </strong>{{$entry->turnaround_time}} {{$entry->turnaround_interval}}</li> 
+
 
               	</ul>
           </div>
@@ -55,10 +49,10 @@
 	<div id="visitinfo" class="col-sm-12 col-md-6">
 
 		<div class="card">
-          <div class="card-header bg-success"><i class=" la la-check"></i><strong>CODE: {{$entry->code}}</strong></div>
+          <div class="card-header bg-red text-white"><i class="la la-ticket la-lg"></i><strong>CODE: {{$entry->code}}</strong></div>
           <div class="card-body">
           		<ul class="list-group">
-                  <li class="list-group-item"><i class="la la-info la-lg"></i> <strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
+                  <li class="list-group-item"><i class="la la-filter la-lg"></i> <strong>Specimen: </strong><a href="/lab/specimen/{{$entry->specimen_id}}/show">{{$entry->specimen['name']}}</a></li> 
                   @if($entry->isActive === 0)
                   <li class="list-group-item"><i class="la la-toggle-off la-lg"></i> Not Available</li> 
                   @endif
@@ -75,10 +69,24 @@
 
 </div>
 
+@if($entry->collections()->exists())
+<div id="footnotes" class="row d-flex">
+	<div class="col-sm-12 col-md-12">
+	<div class="card">
+		<div class="card-body">
+		  	<i class="la la-cubes la-lg"></i> <strong>Available on Collections: </strong>
+		  	@foreach ($entry->collections as $icollect)
+			<i class="la la-cube la-lg"></i><a href="/lab/collection/{{$icollect->id}}/show">{{$icollect->name}}</a>   
+			@endforeach
+		</div>
+	</div>
+	</div>
+</div>
+@endif
 <div id="footnotes" class="row d-flex">
 	<div class="col-sm-12 col-md-6">
 		<div class="card">
-          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Test Description</strong></div>
+          <div class="card-header bg-gray-300"><i class="la la-info la-lg"></i><strong>Test Description</strong></div>
           <div class="card-body">
           		{{$entry->description}}
           </div>
@@ -87,7 +95,7 @@
 	</div>
 	<div class="col-sm-12 col-md-6">
 		<div class="card">
-          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Patient Preparation</strong></div>
+          <div class="card-header bg-gray-400"><i class="la la-user la-lg"></i><strong>Patient Preparation</strong></div>
           <div class="card-body">
           		{{$entry->preparation}}
           </div>
@@ -99,7 +107,7 @@
 	<div class="col-sm-12 col-md-12">
 
 		<div class="card">
-          <div class="card-header bg-success"><i class=" la la-check"></i><strong>Normal Values</strong></div>
+          <div class="card-header bg-purple text-white"><i class="la la-code la-lg"></i><strong>Normal Values</strong></div>
           <div class="card-body">
 
 				<table class="table table-responsive-sm table-bordered table-striped table-hover table-sm">
@@ -107,32 +115,42 @@
                         <tr>
                           <th>Identifier</th>
                           <th>Normal Value</th>
-                          <th>Value Units</th>
                           <th>Interpretation</th>
                         </tr>
                       </thead>
                       <tbody>
-                @foreach ((array) $entry->normal_values as $key => $nvalues)
-          		@php
-				$normalv = (object) $nvalues;
-				@endphp
+						@foreach ((array) $entry->normal_values as $testkey => $testvalu)
+			          		@php
+							$normalval = (object) $testvalu;
+							@endphp
                         <tr>
-                        	@isset($normalv->tidentifier)
-                          <td>{{$normalv->tidentifier}}</td>
+                        	
+                          <td>
+                          	@isset($normalval->tidentifier)
+                          	<strong>{{$normalval->tidentifier}}</strong>
                           	@endisset
-                          	@isset($normalv->tvalues)
-                          <td>{{$normalv->tvalues}}</td>
+                          	</td>
+                          	
+                          <td>
+                          	@isset($normalval->tvalues)
+                          	{{$normalval->tvalues}}
+                          	@endisset  
+                          	@isset($normalval->tunits)
+                          	  {{$normalval->tunits}}
                           	@endisset
-                          	@isset($normalv->tunits)
-                          <td>{{$normalv->tunits}}</td>
+                          </td>
+                          	
+                          <td>
+                          	@isset($normalval->tinterpretation)
+                          	{{$normalval->tinterpretation}}
                           	@endisset
-                          	@isset($normalv->tinterpretation)
-                          <td>{{$normalv->tinterpretation}}</td>
-                          	@endisset
+                          </td>
+                          	
                         </tr>
+                        @endforeach
                       </tbody>
                     </table>
-                @endforeach
+                
           </div>
         </div>
 	</div>
@@ -168,3 +186,4 @@
 	<script src="{{ asset('packages/backpack/crud/js/crud.js') }}"></script>
 	<script src="{{ asset('packages/backpack/crud/js/show.js') }}"></script>
 @endsection
+
